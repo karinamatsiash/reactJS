@@ -1,0 +1,18 @@
+$gap: 10px;
+
+.counter {
+  margin: 20px;
+
+  &__title {
+    margin-bottom: $gap;
+    font-weight: 600;
+  }
+
+  &__value {
+    margin-bottom: $gap;
+  }
+
+  button {
+    margin-right: $gap;
+  }
+}

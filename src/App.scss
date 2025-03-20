@@ -1,0 +1,7 @@
+@use './styles/colors' as *;
+
+.app {
+  background-color: $common-background;
+  color: $text;
+  font-family: 'Montserrat';
+}
