@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Counter from "./module-1/components/Counter/Counter";
+import SearchForm from "./module-1/components/SearchForm/SearchForm";
+import GenreSelect from "./module-1/components/GenreSelect/GenreSelect";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const GENRES = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      genreList: GENRES,
+      genre: GENRES[0],
+    };
+  }
+
+  onSelect = (genre) => this.setState({ genre });
+
+  render() {
+    return React.createElement(
+      "div",
+      null,
+      <Counter initialValue={1} />,
+      <SearchForm initialValue="Movie" />,
+      <GenreSelect
+        genreList={this.state.genreList}
+        selectedGenre={this.state.genre}
+        onSelect={this.onSelect}
+      />,
+    );
+  }
 }
 
 export default App;

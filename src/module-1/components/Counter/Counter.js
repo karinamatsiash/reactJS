@@ -4,7 +4,7 @@ class Counter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: +props.initialValue || 0,
+      value: props.initialValue || 0,
     };
   }
 
