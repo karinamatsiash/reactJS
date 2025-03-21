@@ -1,0 +1,29 @@
+@use '../../styles/colors' as *;
+
+.search-form {
+  margin: 20px;
+
+  input {
+    width: 713px;
+    height: 57px;
+    margin-right: 10px;
+    padding-left: 20px;
+    border-radius: 4px;
+    font-size: 20px;
+    border: none;
+    background-color: $input-background;
+    color: $text;
+  }
+
+  button {
+    height: 57px;
+    width: 233px;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 500;
+    color: $text;
+    background-color: $red-highlight;
+    border: none;
+    cursor: pointer;
+  }
+}
