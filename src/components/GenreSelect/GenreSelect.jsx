@@ -13,8 +13,8 @@ const GenreSelect = ({ genreList = [], selectedGenre, onSelect }) => {
   return (
     <div className='genre'>
       <ul onClick={onGenreSelect}>
-        {genreList.map((genre, index) => (
-          <li key={index} id={genre} className={isSelectedGenre(genre) ? 'selected' : ''}>
+        {genreList.map((genre) => (
+          <li key={genre} id={genre} className={isSelectedGenre(genre) ? 'selected' : ''}>
             {genre}
           </li>
         ))}
