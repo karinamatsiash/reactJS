@@ -1,5 +1,6 @@
 import React from 'react';
 import './GenreSelect.scss';
+import classNames from 'classnames';
 
 const GenreSelect = ({ genreList = [], selectedGenre, onSelect }) => {
   const isSelectedGenre = (genre) => genre === selectedGenre;
@@ -14,7 +15,7 @@ const GenreSelect = ({ genreList = [], selectedGenre, onSelect }) => {
     <div className='genre'>
       <ul onClick={onGenreSelect}>
         {genreList.map((genre) => (
-          <li key={genre} id={genre} className={isSelectedGenre(genre) ? 'selected' : undefined}>
+          <li key={genre} id={genre} className={classNames({ selected: isSelectedGenre(genre) })}>
             {genre}
           </li>
         ))}

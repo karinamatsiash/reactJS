@@ -1,8 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './SearchForm.scss';
 
-const SearchForm = ({ initialValue = '', onSearch }) => {
+const DEFAULT_WIDTH = 400;
+
+const SearchForm = ({ initialValue = '', width = DEFAULT_WIDTH, onSearch }) => {
   const [value, setValue] = useState(initialValue);
 
   const onSearchClick = () => onSearch(value);
@@ -19,10 +20,11 @@ const SearchForm = ({ initialValue = '', onSearch }) => {
     <div className='search-form'>
       <input
         type='text'
-        defaultValue={value}
+        value={value}
         onKeyDown={onKeyDown}
         onChange={onChange}
         placeholder='What do you want to watch?'
+        style={{ width: `${width}px` }}
       ></input>
       <button onClick={onSearchClick}>{'SEARCH'}</button>
     </div>
