@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 2022,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true
@@ -22,6 +22,7 @@ module.exports = {
   rules: {
     'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
-    'react/prop-types': 'off'
+    'react/prop-types': 'off',
+    'no-undef': 'error'
   }
 };

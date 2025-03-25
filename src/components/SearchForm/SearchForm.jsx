@@ -2,20 +2,18 @@ import React from 'react';
 import { useState } from 'react';
 import './SearchForm.scss';
 
-const SearchForm = ({ initialValue = '' }) => {
+const SearchForm = ({ initialValue = '', onSearch }) => {
   const [value, setValue] = useState(initialValue);
 
-  const onSearch = () => printSearchValue(value);
+  const onSearchClick = () => onSearch(value);
 
   const onChange = (event) => setValue(event.target.value);
 
   const onKeyDown = ({ key, target }) => {
     if (key === 'Enter') {
-      printSearchValue(target.value);
+      onSearch(target.value);
     }
   };
-
-  const printSearchValue = (value) => console.log(`Search value: ${value}`);
 
   return (
     <div className='search-form'>
@@ -26,7 +24,7 @@ const SearchForm = ({ initialValue = '' }) => {
         onChange={onChange}
         placeholder='What do you want to watch?'
       ></input>
-      <button onClick={onSearch}>{'SEARCH'}</button>
+      <button onClick={onSearchClick}>{'SEARCH'}</button>
     </div>
   );
 };
