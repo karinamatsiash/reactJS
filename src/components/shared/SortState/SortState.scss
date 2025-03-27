@@ -1,0 +1,9 @@
+@use '../../../styles/colors' as *;
+
+.sort-state {
+  color: $red-highlight;
+
+  &_option {
+    width: 12px;
+  }
+}

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import GenreSelect from './GenreSelect';
 import React from 'react';
-import { GENRES } from '../../../constants/genreList';
+import { GENRES } from '../../../../constants/genreList';
 import userEvent from '@testing-library/user-event';
 
 describe('GenreSelect', () => {

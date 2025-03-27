@@ -1,5 +1,5 @@
 import { fn } from '@storybook/test';
-import GenreSelect from '../components/MoviesPanel/GenreSelect/GenreSelect';
+import GenreSelect from '../components/MoviesPanel/MovieToolbar/GenreSelect/GenreSelect';
 import { GENRES } from '../constants/genreList';
 
 export default {
