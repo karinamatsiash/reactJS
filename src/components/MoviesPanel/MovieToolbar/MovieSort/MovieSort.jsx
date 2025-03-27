@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 export const MovieSort = ({ selectedSort, onSortBy }) => {
   const { option: selectedOption, state: sortState } = selectedSort || {};
 
-  console.log(selectedSort);
-
   const getOptionState = (option) =>
     sortState && option === selectedOption ? (
       <SortState sortState={sortState}></SortState>

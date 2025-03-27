@@ -8,7 +8,9 @@ describe('GenreSelect', () => {
   const onSelectMock = jest.fn();
 
   beforeEach(() => {
-    render(<GenreSelect genreList={GENRES} selectedGenre={GENRES[0]} onSelect={onSelectMock} />);
+    render(
+      <GenreSelect genreList={GENRES} selectedGenre={GENRES[0]} onSelect={onSelectMock} />
+    );
   });
 
   it('renders all genres passed in props', () => {

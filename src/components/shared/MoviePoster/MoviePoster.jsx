@@ -1,10 +1,9 @@
 import React from 'react';
-import './MoviePoster.scss';
 import PropTypes from 'prop-types';
+import './MoviePoster.scss';
 
 const MoviePoster = ({ imageUrl }) => {
-  const src = require(`../../../assets/${imageUrl}`);
-  return <img src={src} />;
+  return <img src={`/assets/${imageUrl}`} alt='Movie Poster' />;
 };
 
 MoviePoster.propTypes = {
