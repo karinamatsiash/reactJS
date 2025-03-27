@@ -4,4 +4,9 @@
   background-color: $common-background;
   color: $text;
   font-family: 'Montserrat';
+  padding: 20px;
+
+  &_top-panel {
+    margin-bottom: 10px;
+  }
 }

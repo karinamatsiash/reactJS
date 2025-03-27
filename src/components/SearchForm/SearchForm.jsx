@@ -18,15 +18,19 @@ const SearchForm = ({ initialValue = '', width = DEFAULT_WIDTH, onSearch }) => {
 
   return (
     <div className='search-form'>
-      <input
-        type='text'
-        value={value}
-        onKeyDown={onKeyDown}
-        onChange={onChange}
-        placeholder='What do you want to watch?'
-        style={{ width: `${width}px` }}
-      ></input>
-      <button onClick={onSearchClick}>{'SEARCH'}</button>
+      <div className='search-form_background'></div>
+      <div className='search-form_title'>{'FIND YOUR MOVIE'}</div>
+      <div>
+        <input
+          type='text'
+          value={value}
+          onKeyDown={onKeyDown}
+          onChange={onChange}
+          placeholder='What do you want to watch?'
+          style={{ width: `${width}px` }}
+        ></input>
+        <button onClick={onSearchClick}>{'SEARCH'}</button>
+      </div>
     </div>
   );
 };

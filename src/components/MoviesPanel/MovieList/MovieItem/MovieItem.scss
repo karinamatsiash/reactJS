@@ -1,0 +1,28 @@
+.movie {
+  // width: 323px;
+  margin: 10px;
+  cursor: pointer;
+
+  &_name {
+    font-weight: 500;
+    font-size: 18px;
+    opacity: 0.7;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &_info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  &_year {
+    font-size: 14px;
+    padding: 4px;
+    border: 1px solid #979797;
+    border-radius: 4px;
+    opacity: 0.7;
+  }
+}

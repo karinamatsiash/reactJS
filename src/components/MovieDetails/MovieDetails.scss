@@ -1,0 +1,69 @@
+@use '../../styles/colors' as *;
+
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: $panel-background;
+}
+
+.movie-header {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  color: $red-highlight;
+
+  &_label {
+    font-size: 20px;
+  }
+
+  &_search {
+    font-size: 28px;
+    cursor: pointer;
+  }
+}
+
+.movie-info {
+  margin-left: 20px;
+
+  &_description {
+    font-size: 20px;
+    opacity: 0.5;
+  }
+
+  .movie-title {
+    align-items: center;
+    margin-bottom: 10px;
+
+    &_name {
+      margin-right: 30px;
+      text-transform: uppercase;
+      font-size: 40px;
+    }
+
+    &_rating {
+      justify-content: center;
+      align-items: center;
+      min-height: 45px;
+      min-width: 45px;
+      font-size: 20px;
+      border-radius: 50%;
+      border: 1px solid $text;
+    }
+  }
+
+  .additional-info {
+    margin: 20px 0;
+    font-size: 24px;
+    color: $red-highlight;
+
+    &_year {
+      margin-right: 40px;
+    }
+  }
+}
+
+.d-flex {
+  display: flex;
+}

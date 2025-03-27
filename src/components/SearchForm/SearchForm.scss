@@ -1,7 +1,44 @@
 @use '../../styles/colors' as *;
 
 .search-form {
-  margin: 20px;
+  height: 396px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+
+  &_background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: url('../../assets/posters.jpg');
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgb(0 0 0 / 80%);
+      backdrop-filter: blur(3px);
+    }
+  }
+
+  input,
+  button,
+  &_title {
+    position: relative;
+    z-index: 1;
+  }
+
+  &_title {
+    margin-bottom: 30px;
+    font-size: 40px;
+    letter-spacing: 1px;
+    opacity: 0.8;
+  }
 
   input {
     height: 57px;
