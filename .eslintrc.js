@@ -25,9 +25,11 @@ module.exports = {
     'plugin:storybook/recommended'
   ],
   rules: {
-    'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: false }],
+    'no-unused-vars': [
+      'error',
+      { vars: 'all', args: 'after-used', ignoreRestSiblings: false }
+    ],
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
-    'react/prop-types': 'off',
     'no-undef': 'error',
     'no-debugger': 'off'
   }

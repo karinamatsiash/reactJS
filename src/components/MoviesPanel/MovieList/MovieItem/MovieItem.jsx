@@ -2,6 +2,7 @@ import React from 'react';
 import './MovieItem.scss';
 import MoviePoster from '../../../shared/MoviePoster/MoviePoster';
 import MovieGenres from '../../../shared/MovieGenres/MovieGenres';
+import PropTypes from 'prop-types';
 
 const MovieItem = ({ movieData }) => {
   const { imageUrl, name, releaseYear, genres } = movieData;
@@ -16,6 +17,10 @@ const MovieItem = ({ movieData }) => {
       <MovieGenres genres={genres}></MovieGenres>
     </div>
   );
+};
+
+MovieItem.propTypes = {
+  movieData: PropTypes.object.isRequired
 };
 
 export default MovieItem;

@@ -1,6 +1,7 @@
 import React from 'react';
 import MovieItem from './MovieItem/MovieItem';
 import './MovieList.scss';
+import PropTypes from 'prop-types';
 
 const MovieList = ({ movieList, onMovieSelect }) => {
   const onMovieClick = ({ target }) => {
@@ -19,6 +20,11 @@ const MovieList = ({ movieList, onMovieSelect }) => {
       ))}
     </ul>
   );
+};
+
+MovieList.propTypes = {
+  movieList: PropTypes.array,
+  onMovieSelect: PropTypes.func.isRequired
 };
 
 export default MovieList;

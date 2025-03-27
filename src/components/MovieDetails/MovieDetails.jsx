@@ -3,9 +3,11 @@ import './MovieDetails.scss';
 import MoviePoster from '../shared/MoviePoster/MoviePoster';
 import { VscSearch } from 'react-icons/vsc';
 import MovieGenres from '../shared/MovieGenres/MovieGenres';
+import PropTypes from 'prop-types';
 
 const MovieDetails = ({ movieData, onSearchClick }) => {
-  const { imageUrl, name, rating, releaseYear, duration, genres, description } = movieData;
+  const { imageUrl, name, rating, releaseYear, duration, genres, description } =
+    movieData;
 
   return (
     <div className='movie-details'>
@@ -35,6 +37,11 @@ const MovieDetails = ({ movieData, onSearchClick }) => {
       </div>
     </div>
   );
+};
+
+MovieDetails.propTypes = {
+  movieData: PropTypes.object.isRequired,
+  onSearchClick: PropTypes.func.isRequired
 };
 
 export default MovieDetails;

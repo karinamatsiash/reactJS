@@ -3,14 +3,17 @@ import './MovieSort.scss';
 import { SORT_OPTIONS } from '../../../../constants/sortOptions';
 import classNames from 'classnames';
 import SortState from '../../../shared/SortState/SortState';
+import PropTypes from 'prop-types';
 
 export const MovieSort = ({ selectedSort, onSortBy }) => {
-  const { option: selectedOption, state } = selectedSort || {};
+  const { option: selectedOption, state: sortState } = selectedSort || {};
 
   console.log(selectedSort);
 
   const getOptionState = (option) =>
-    state && option === selectedOption ? <SortState state={state}></SortState> : null;
+    sortState && option === selectedOption ? (
+      <SortState sortState={sortState}></SortState>
+    ) : null;
 
   const onSortClick = (ev) => {
     onSortBy(ev.target.id);
@@ -25,7 +28,9 @@ export const MovieSort = ({ selectedSort, onSortBy }) => {
           <div
             id={item}
             onClick={onSortClick}
-            className={classNames('movie-sort_name', { selected: item === selectedOption })}
+            className={classNames('movie-sort_name', {
+              selected: item === selectedOption
+            })}
           >
             {item}
           </div>
@@ -34,6 +39,11 @@ export const MovieSort = ({ selectedSort, onSortBy }) => {
       ))}
     </div>
   );
+};
+
+MovieSort.propTypes = {
+  selectedSort: PropTypes.object,
+  onSortBy: PropTypes.func.isRequired
 };
 
 export default MovieSort;

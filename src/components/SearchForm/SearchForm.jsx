@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './SearchForm.scss';
+import PropTypes from 'prop-types';
 
 const DEFAULT_WIDTH = 400;
 
@@ -33,6 +34,12 @@ const SearchForm = ({ initialValue = '', width = DEFAULT_WIDTH, onSearch }) => {
       </div>
     </div>
   );
+};
+
+SearchForm.propTypes = {
+  initialValue: PropTypes.string,
+  width: PropTypes.number,
+  onSearch: PropTypes.func.isRequired
 };
 
 export default SearchForm;

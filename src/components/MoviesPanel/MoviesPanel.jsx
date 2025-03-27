@@ -4,6 +4,7 @@ import { GENRES } from '../../constants/genreList';
 import MovieList from './MovieList/MovieList';
 import MovieToolbar from './MovieToolbar/MovieToolbar';
 import { getSortOptionState } from '../../utils/getSortState';
+import PropTypes from 'prop-types';
 
 const MoviesPanel = ({ movieList, openMovieDetails }) => {
   const [genre, setGenre] = useState(GENRES[0]);
@@ -28,6 +29,11 @@ const MoviesPanel = ({ movieList, openMovieDetails }) => {
       <MovieList movieList={movieList} onMovieSelect={openMovieDetails}></MovieList>
     </div>
   );
+};
+
+MoviesPanel.propTypes = {
+  movieList: PropTypes.array,
+  openMovieDetails: PropTypes.func.isRequired
 };
 
 export default MoviesPanel;
