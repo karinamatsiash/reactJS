@@ -13,7 +13,7 @@ const App = () => {
 
   const openMovieDetails = (id) => {
     setMovie(findMovieById(id));
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     console.log('Movie has been selected', id);
   };
 
@@ -33,7 +33,10 @@ const App = () => {
         )}
       </div>
 
-      <MoviesPanel movieList={MOVIES_LIST} openMovieDetails={openMovieDetails}></MoviesPanel>
+      <MoviesPanel
+        movieList={MOVIES_LIST}
+        openMovieDetails={openMovieDetails}
+      ></MoviesPanel>
       <Counter initialValue={1} />
     </div>
   );
