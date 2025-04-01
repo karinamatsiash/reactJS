@@ -4,7 +4,7 @@ import Counter from './components/Counter/Counter';
 import SearchForm from './components/SearchForm/SearchForm';
 import MoviesPanel from './components/MoviesPanel/MoviesPanel';
 import MovieDetails from './components/MovieDetails/MovieDetails';
-import { MOVIES_LIST } from './constants/moviesList';
+import { MOVIES_LIST } from './constants/MoviesList';
 
 const App = () => {
   const [movie, setMovie] = useState(null);

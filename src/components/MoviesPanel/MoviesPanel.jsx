@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './MoviesPanel.scss';
-import { GENRES } from '../../constants/genreList';
+import { GENRES } from '../../constants/GenreList';
 import MovieList from './MovieList/MovieList';
 import MovieToolbar from './MovieToolbar/MovieToolbar';
 import { getSortOptionState } from '../../utils/getSortState';
