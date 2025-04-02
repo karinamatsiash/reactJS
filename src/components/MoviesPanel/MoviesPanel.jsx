@@ -10,7 +10,7 @@ const MoviesPanel = ({ movieList, openMovieDetails }) => {
   const [genre, setGenre] = useState(GENRES[0]);
   const [sort, setSort] = useState(null);
 
-  const addSortOption = (newOption) => {
+  const handleSort = (newOption) => {
     setSort((prevState) => {
       const state = getSortOptionState(prevState, newOption);
       return state ? { option: newOption, state } : null;
@@ -24,7 +24,7 @@ const MoviesPanel = ({ movieList, openMovieDetails }) => {
         genreList={GENRES}
         onGenreSelect={setGenre}
         selectedSort={sort}
-        onSortBy={addSortOption}
+        onSortBy={handleSort}
       ></MovieToolbar>
       <MovieList movieList={movieList} onMovieSelect={openMovieDetails}></MovieList>
     </div>
