@@ -14,5 +14,16 @@ $gap: 10px;
 
   button {
     margin-right: $gap;
+    cursor: pointer;
+
+    &.cta {
+      background-color: #5f9ea0;
+      border-radius: 3px;
+      border: none;
+
+      &:hover {
+        background-color: #5f9ea0a3;
+      }
+    }
   }
 }
