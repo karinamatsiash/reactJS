@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import MovieDetails from './MovieDetails';
+import { isElementVisible } from '../../testing/isElementVisible';
 
 const mockMovieData = {
   imageUrl: 'https://via.placeholder.com/150',
@@ -18,13 +19,11 @@ describe('MovieDetails', () => {
   it('renders the MovieDetails component correctly', () => {
     render(<MovieDetails movieData={mockMovieData} onSearchClick={mockOnSearchClick} />);
 
-    expect(screen.getByText('Test Movie')).toBeInTheDocument();
-    expect(screen.getByText('8.5')).toBeInTheDocument();
-    expect(screen.getByText('2021')).toBeInTheDocument();
-    expect(screen.getByText('120 min')).toBeInTheDocument();
-    expect(
-      screen.getByText('A test description for the test movie.')
-    ).toBeInTheDocument();
-    expect(screen.getByText('action, adventure')).toBeInTheDocument();
+    isElementVisible('Test Movie');
+    isElementVisible('8.5');
+    isElementVisible('2021');
+    isElementVisible('120 min');
+    isElementVisible('A test description for the test movie.');
+    isElementVisible('action, adventure');
   });
 });
