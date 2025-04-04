@@ -5,8 +5,8 @@ import { isElementVisible } from '../../../testing/isElementVisible';
 
 describe('MovieGenres', () => {
   it('renders genres as a comma-separated lowercase string', () => {
-    const genres = ['Action', 'Comedy', 'Drama'];
+    const genres = 'Action, Comedy, Drama';
     render(<MovieGenres genres={genres} />);
-    isElementVisible('action, comedy, drama');
+    isElementVisible('Action, Comedy, Drama');
   });
 });

@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { GENRES } from '../../constants/GenreList';
 import Input from '../shared/Input/Input';
-import './AddMovie.scss';
-import { FORM_CONTROLS } from '../../constants/AddMovie';
+import './MovieForm.scss';
+import { FORM_CONTROLS } from '../../constants/MovieForm';
 import Button from '../shared/Button/Button';
 import MultiSelect from '../shared/MultiSelect/MultiSelect';
 
@@ -16,7 +16,7 @@ const populateFormControls = (value) =>
     {}
   );
 
-const AddMovie = ({ onSubmit, movieData = {} }) => {
+const MovieForm = ({ onSubmit, movieData = {} }) => {
   const [formData, setFormData] = useState(movieData);
   const [formValidation, setFormValidation] = useState(populateFormControls(true));
 
@@ -28,6 +28,7 @@ const AddMovie = ({ onSubmit, movieData = {} }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    event.stopPropagation();
 
     const formData = Object.fromEntries(new FormData(event.target));
     const validity = getValidity(formData);
@@ -45,7 +46,11 @@ const AddMovie = ({ onSubmit, movieData = {} }) => {
     setFormValidation((prevState) => ({ ...prevState, [target.name]: true }));
   };
 
-  const handleReset = () => setFormData(populateFormControls(''));
+  const handleReset = (event) => {
+    event.stopPropagation();
+
+    setFormData(populateFormControls(''));
+  };
 
   const handleChange = ({ name, value }) => {
     setFormData((prevState) => ({
@@ -59,9 +64,9 @@ const AddMovie = ({ onSubmit, movieData = {} }) => {
       {FORM_CONTROLS.map((control) =>
         control.type === 'select' ? (
           <MultiSelect
-            key='genre'
-            name='genre'
-            placeholder='Select Genre'
+            key={control.name}
+            name={control.name}
+            placeholder={control.placeholder}
             className={control.className}
             label={control.label}
             onChange={handleChange}
@@ -95,9 +100,9 @@ const AddMovie = ({ onSubmit, movieData = {} }) => {
   );
 };
 
-AddMovie.propTypes = {
+MovieForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   movieData: PropTypes.object
 };
 
-export default AddMovie;
+export default MovieForm;

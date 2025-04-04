@@ -1,6 +1,6 @@
 export const FORM_CONTROLS = [
   {
-    name: 'title',
+    name: 'name',
     type: 'text',
     placeholder: 'Movie title',
     label: 'Title',
@@ -8,7 +8,7 @@ export const FORM_CONTROLS = [
     errorMessage: 'Please, enter movie title'
   },
   {
-    name: 'date',
+    name: 'releaseYear',
     type: 'date',
     placeholder: 'Select Date',
     label: 'Release Date',
@@ -16,7 +16,7 @@ export const FORM_CONTROLS = [
     errorMessage: 'Please, enter movie release date'
   },
   {
-    name: 'url',
+    name: 'imageUrl',
     type: 'text',
     placeholder: 'https://',
     label: 'Movie Url',
@@ -35,15 +35,15 @@ export const FORM_CONTROLS = [
     errorMessage: 'Please, enter movie raiting'
   },
   {
-    name: 'genre',
+    name: 'genres',
     type: 'select',
-    placeholder: '7.8',
+    placeholder: 'Select Genre',
     label: 'Genre',
     className: 'medium',
     errorMessage: 'Please, enter at least 1 movie genre'
   },
   {
-    name: 'runtime',
+    name: 'duration',
     type: 'text',
     placeholder: 'minutes',
     label: 'Runtime',

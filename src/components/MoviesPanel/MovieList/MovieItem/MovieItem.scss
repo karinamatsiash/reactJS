@@ -1,4 +1,7 @@
+@use '../../../../styles/colors.scss' as *;
+
 .movie {
+  position: relative;
   width: 323px;
   margin: 10px;
   cursor: pointer;

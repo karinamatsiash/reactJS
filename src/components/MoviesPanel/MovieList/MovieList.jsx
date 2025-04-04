@@ -4,7 +4,14 @@ import './MovieList.scss';
 import PropTypes from 'prop-types';
 
 const MovieList = ({ movieList, onMovieSelect }) => {
-  const onMovieClick = ({ currentTarget }) => onMovieSelect(currentTarget.id);
+  const onMovieClick = (event) => {
+    // TODO: event.target is IMG instead of LI
+    const listItem = event.target.closest('li');
+
+    if (!listItem) return;
+
+    onMovieSelect(listItem.id);
+  };
 
   return (
     <ul className='movie-list'>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.scss';
-import Counter from './components/Counter/Counter';
 import SearchForm from './components/SearchForm/SearchForm';
 import MoviesPanel from './components/MoviesPanel/MoviesPanel';
 import MovieDetails from './components/MovieDetails/MovieDetails';
@@ -37,7 +36,6 @@ const App = () => {
         movieList={MOVIES_LIST}
         openMovieDetails={openMovieDetails}
       ></MoviesPanel>
-      <Counter initialValue={1} />
     </div>
   );
 };

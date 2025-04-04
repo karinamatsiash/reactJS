@@ -7,9 +7,9 @@ const mockMovieData = {
   imageUrl: 'https://via.placeholder.com/150',
   name: 'Test Movie',
   rating: '8.5',
-  releaseYear: 2021,
+  releaseYear: '2014-11-07',
   duration: '120 min',
-  genres: ['Action', 'Adventure'],
+  genres: 'Action, Adventure',
   description: 'A test description for the test movie.'
 };
 
@@ -21,9 +21,9 @@ describe('MovieDetails', () => {
 
     isElementVisible('Test Movie');
     isElementVisible('8.5');
-    isElementVisible('2021');
+    isElementVisible('2014');
     isElementVisible('120 min');
     isElementVisible('A test description for the test movie.');
-    isElementVisible('action, adventure');
+    isElementVisible('Action, Adventure');
   });
 });

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SearchForm.scss';
 import PropTypes from 'prop-types';
-import AddMovie from '../AddMovie/AddMovie';
+import MovieForm from '../MovieForm/MovieForm';
 import Dialog from '../shared/Dialog/Dialog';
 import Button from '../shared/Button/Button';
 import Input from '../shared/Input/Input';
@@ -25,7 +25,6 @@ const SearchForm = ({ initialValue = '', width = DEFAULT_WIDTH, onSearch }) => {
 
   const showMovieDialog = () => setShouldShowMovieDialog(true);
   const closeMovieDialog = () => setShouldShowMovieDialog(false);
-
   const onAddMovieSubmit = (formData) => {
     setMovieData(formData);
     closeMovieDialog();
@@ -59,7 +58,7 @@ const SearchForm = ({ initialValue = '', width = DEFAULT_WIDTH, onSearch }) => {
 
       {shouldShowMovieDialog && (
         <Dialog onClose={closeMovieDialog} title={'ADD MOVIE'}>
-          <AddMovie onSubmit={onAddMovieSubmit} movieData={movieData} />
+          <MovieForm onSubmit={onAddMovieSubmit} movieData={movieData} />
         </Dialog>
       )}
     </div>

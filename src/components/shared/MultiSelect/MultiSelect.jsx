@@ -105,8 +105,8 @@ const MultiSelect = ({
           </div>
         )}
       </div>
-
-      <ErrorMessage errorMessage={errorMessage} invalid={invalid} />
+      {[...values].join(', ')}
+      {invalid && <ErrorMessage errorMessage={errorMessage} invalid={invalid} />}
     </div>
   );
 };

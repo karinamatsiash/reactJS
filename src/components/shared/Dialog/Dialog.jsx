@@ -4,11 +4,11 @@ import { Portal } from 'react-portal';
 import './Dialog.scss';
 import { IoCloseOutline } from 'react-icons/io5';
 
-const Dialog = ({ title, children, onClose }) => {
+const Dialog = ({ title, children, width, onClose }) => {
   return (
     <Portal node={document.body}>
       <div className='dialog-overlay'>
-        <div className='dialog'>
+        <div className='dialog' style={{ width }}>
           <div className='dialog_header'>
             <span className='dialog_header_title'>{title}</span>
             <IoCloseOutline className='dialog_header_close-btn' onClick={onClose} />
@@ -22,6 +22,7 @@ const Dialog = ({ title, children, onClose }) => {
 
 Dialog.propTypes = {
   title: PropTypes.string.isRequired,
+  width: PropTypes.string,
   children: PropTypes.node.isRequired,
   onClose: PropTypes.func.isRequired
 };

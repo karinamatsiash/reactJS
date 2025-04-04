@@ -1,0 +1,48 @@
+@use '../../../../styles/colors.scss' as *;
+.movie-control {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  &_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+    padding: 5px;
+    font-size: 20px;
+    background-color: $panel-opacity-background;
+    border-radius: 50%;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: $panel-background;
+    }
+  }
+
+  &_options {
+    display: block;
+    width: 150px;
+    background-color: $panel-background;
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        line-height: 30px;
+        padding: 10px 12px;
+
+        &:hover {
+          background-color: $red-highlight;
+        }
+      }
+    }
+  }
+
+  &_close-button {
+    padding: 3px 5px;
+    text-align: right;
+  }
+}
