@@ -1,5 +1,5 @@
 import MovieItem from '../components/MoviesPanel/MovieList/MovieItem/MovieItem';
-import { MOVIES_LIST } from '../constants/moviesList';
+import { MOVIES_LIST } from '../constants/MoviesList';
 
 export default {
   title: 'Example/MovieItem',

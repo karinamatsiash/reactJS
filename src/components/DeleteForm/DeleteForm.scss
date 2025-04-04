@@ -1,6 +1,9 @@
+@use '../../styles/colors.scss' as *;
+
 .delete-form {
   height: 170px;
   width: 100%;
+  color: $text;
 
   &_text {
     font-size: 20px;

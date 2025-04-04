@@ -17,7 +17,7 @@ const Input = ({ label, className, errorMessage, isValid, ...inputArgs }) => {
         <input {...inputArgs} className={classNames({ invalid })}></input>
       )}
 
-      {invalid && <ErrorMessage errorMessage={errorMessage} invalid={invalid} />}
+      {invalid && <ErrorMessage errorMessage={errorMessage} />}
     </div>
   );
 };
