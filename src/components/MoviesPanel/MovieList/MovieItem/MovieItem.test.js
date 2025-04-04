@@ -3,6 +3,7 @@
 import { render, screen } from '@testing-library/react';
 import MovieItem from './MovieItem';
 import React from 'react';
+import { isElementVisible } from '../../../../testing/isElementVisible';
 
 jest.mock('../../../shared/MoviePoster/MoviePoster', () => () => (
   <img src='mocked-image.jpg' alt='Movie Poster' />
@@ -23,9 +24,9 @@ describe('MovieItem Component', () => {
   it('renders movie name, year, and genres correctly', () => {
     render(<MovieItem movieData={movieData} />);
 
-    expect(screen.getByText('Interstellar')).toBeInTheDocument();
-    expect(screen.getByText('2014')).toBeInTheDocument();
-    expect(screen.getByText('Sci-Fi, Drama')).toBeInTheDocument();
+    isElementVisible('Interstellar');
+    isElementVisible('2014');
+    isElementVisible('Sci-Fi, Drama');
   });
 
   it('renders the movie poster with correct image source', () => {

@@ -28,7 +28,6 @@
   }
 
   input,
-  button,
   &_title {
     position: relative;
     z-index: 1;
@@ -42,25 +41,20 @@
   }
 
   input {
-    height: 57px;
     margin-right: 10px;
     padding-left: 20px;
-    border-radius: 4px;
-    font-size: 20px;
-    border: none;
-    background-color: $input-background;
-    color: $text;
   }
 
-  button {
-    height: 57px;
+  &_add-button button {
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    width: 177px;
+  }
+
+  &_search button {
+    position: relative;
+    z-index: 1;
     width: 233px;
-    border-radius: 4px;
-    font-size: 20px;
-    font-weight: 500;
-    color: $text;
-    background-color: $red-highlight;
-    border: none;
-    cursor: pointer;
   }
 }

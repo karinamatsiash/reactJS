@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import MoviePoster from './MoviePoster';
 import React from 'react';
+import { isElementByRoleVisible } from '../../../testing/isElementByRoleVisible';
 
 describe('MoviePoster', () => {
   it('renders an image with the correct source', () => {
@@ -8,7 +9,8 @@ describe('MoviePoster', () => {
     render(<MoviePoster imageUrl={imageUrl} />);
 
     const imgElement = screen.getByRole('img');
-    expect(imgElement).toBeInTheDocument();
+    isElementByRoleVisible('img');
+
     expect(imgElement).toHaveAttribute('src', `/assets/${imageUrl}`);
   });
 });

@@ -1,0 +1,38 @@
+@use '../../../styles/colors' as *;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+@import url('../../../styles/input.scss');
+
+textarea {
+  height: 80px;
+  resize: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+input[type='date']::-webkit-datetime-edit {
+  font-family: 'Montserrat', sans-serif;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.small {
+  width: 35%;
+}
+.medium {
+  width: 62%;
+}
+.large {
+  width: 100%;
+}
+.auto {
+  display: inline-block;
+}

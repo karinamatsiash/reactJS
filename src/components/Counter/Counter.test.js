@@ -2,16 +2,17 @@ import { render, screen } from '@testing-library/react';
 import Counter from './Counter';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import { isElementVisible } from '../../testing/isElementVisible';
 
 describe('Counter', () => {
   it('renders initial value provided in props', () => {
     render(<Counter initialValue={10} />);
-    expect(screen.getByText(/Current value: 10/i)).toBeInTheDocument();
+    isElementVisible(/Current value: 10/i);
   });
 
   it('renders w/o initial value in props', () => {
     render(<Counter />);
-    expect(screen.getByText(/Current value: 0/i)).toBeInTheDocument();
+    isElementVisible(/Current value: 0/i);
   });
 
   it('decrements the displayed value on click', () => {
@@ -19,7 +20,7 @@ describe('Counter', () => {
 
     userEvent.click(screen.getByText('-'));
 
-    expect(screen.getByText(/Current value: 9/i)).toBeInTheDocument();
+    isElementVisible(/Current value: 9/i);
   });
 
   it('increments the displayed value on click', () => {
@@ -27,6 +28,6 @@ describe('Counter', () => {
 
     userEvent.click(screen.getByText('+'));
 
-    expect(screen.getByText(/Current value: 11/i)).toBeInTheDocument();
+    isElementVisible(/Current value: 11/i);
   });
 });

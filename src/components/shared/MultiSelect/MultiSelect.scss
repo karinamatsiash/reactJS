@@ -1,0 +1,29 @@
+@use '../../../styles/colors.scss' as *;
+
+.multi-select {
+  position: relative;
+
+  &_input-wrapper {
+    position: relative;
+  }
+
+  &_arrow {
+    position: absolute;
+    right: 10px;
+    bottom: 16px;
+    color: $red-highlight;
+    cursor: pointer;
+  }
+
+  &_input input {
+    user-select: none;
+    cursor: pointer;
+  }
+
+  &_dropdown {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    background-color: $panel-background;
+  }
+}

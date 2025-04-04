@@ -3,7 +3,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import MovieSort from './MovieSort';
-import { SORT_OPTIONS } from '../../../../constants/sortOptions';
+import { SORT_OPTIONS } from '../../../../constants/SortOptions';
+import { isElementVisible } from '../../../../testing/isElementVisible';
 import userEvent from '@testing-library/user-event';
 
 jest.mock('../../../shared/SortState/SortState', () => ({ sortState }) => (
@@ -17,9 +18,7 @@ describe('MovieSort', () => {
   it('renders sorting options correctly', () => {
     render(<MovieSort selectedSort={selectedSort} onSortBy={mockOnSortBy} />);
 
-    SORT_OPTIONS.forEach((option) => {
-      expect(screen.getByText(option)).toBeInTheDocument();
-    });
+    SORT_OPTIONS.forEach((option) => isElementVisible(option));
   });
 
   it('calls onSortBy when a sorting option is clicked', () => {

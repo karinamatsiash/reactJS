@@ -1,5 +1,5 @@
 import MovieGenres from '../components/shared/MovieGenres/MovieGenres';
-import { GENRES } from '../constants/genreList';
+import { GENRES } from '../constants/GenreList';
 
 export default {
   title: 'Example/MovieGenres',
@@ -8,7 +8,7 @@ export default {
     layout: 'centered'
   },
   tags: ['autodocs'],
-  args: { genres: GENRES }
+  args: { genres: GENRES.join(', ') }
 };
 
 export const Default = {

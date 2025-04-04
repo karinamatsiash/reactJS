@@ -1,6 +1,6 @@
 import { fn } from '@storybook/test';
 import MoviesPanel from '../components/MoviesPanel/MoviesPanel';
-import { MOVIES_LIST } from '../constants/moviesList';
+import { MOVIES_LIST } from '../constants/MoviesList';
 
 export default {
   title: 'Example/MoviesPanel',

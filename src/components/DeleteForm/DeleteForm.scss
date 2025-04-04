@@ -1,0 +1,22 @@
+@use '../../styles/colors.scss' as *;
+
+.delete-form {
+  height: 170px;
+  width: 100%;
+  color: $text;
+
+  &_text {
+    font-size: 20px;
+    margin-top: 40px;
+  }
+
+  footer {
+    text-align: right;
+    margin-top: 50px;
+
+    button {
+      width: 180px;
+      margin-right: 50px;
+    }
+  }
+}

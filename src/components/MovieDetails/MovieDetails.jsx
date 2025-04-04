@@ -28,7 +28,9 @@ const MovieDetails = ({ movieData, onSearchClick }) => {
           <MovieGenres genres={genres}></MovieGenres>
 
           <div className='additional-info d-flex'>
-            <div className='additional-info_year'>{releaseYear}</div>
+            <div className='additional-info_year'>
+              {new Date(releaseYear).getFullYear()}
+            </div>
             <div className='additional-info_duration'>{duration}</div>
           </div>
 

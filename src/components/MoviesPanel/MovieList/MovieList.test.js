@@ -1,8 +1,10 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import MovieList from './MovieList';
 import React from 'react';
+import { isElementVisible } from '../../../testing/isElementVisible';
+import { isElementNonVisible } from '../../../testing/isElementNonVisible';
 
 jest.mock('./MovieItem/MovieItem', () => ({ movieData }) => <div>{movieData.name}</div>);
 
@@ -28,14 +30,14 @@ describe('MovieList Component', () => {
   it('renders a list of movies correctly', () => {
     render(<MovieList movieList={movies} onMovieSelect={mockOnMovieSelect} />);
 
-    expect(screen.getByText('Inception')).toBeInTheDocument();
-    expect(screen.getByText('Titanic')).toBeInTheDocument();
+    isElementVisible('Inception');
+    isElementVisible('Titanic');
   });
 
   it('renders correctly when movieList is empty', () => {
     render(<MovieList movieList={[]} onMovieSelect={mockOnMovieSelect} />);
 
-    expect(screen.queryByText('Inception')).not.toBeInTheDocument();
-    expect(screen.queryByText('Titanic')).not.toBeInTheDocument();
+    isElementNonVisible('Inception');
+    isElementNonVisible('Titanic');
   });
 });

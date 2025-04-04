@@ -3,6 +3,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import MovieToolbar from './MovieToolbar';
+import { isElementByTestIdVisible } from '../../../testing/isElementByTestIdVisible';
 
 jest.mock('./GenreSelect/GenreSelect', () => ({ selectedGenre, onSelect }) => (
   <div data-testid='genre-select' onClick={() => onSelect('Action')}>
@@ -34,8 +35,8 @@ describe('MovieToolbar Component', () => {
       />
     );
 
-    expect(screen.getByTestId('genre-select')).toBeInTheDocument();
-    expect(screen.getByTestId('movie-sort')).toBeInTheDocument();
+    isElementByTestIdVisible('genre-select');
+    isElementByTestIdVisible('movie-sort');
   });
 
   it('passes correct props to GenreSelect', () => {
