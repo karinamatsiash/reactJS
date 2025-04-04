@@ -4,8 +4,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import MovieSort from './MovieSort';
 import { SORT_OPTIONS } from '../../../../constants/SortOptions';
-import userEvent from '@testing-library/user-event';
 import { isElementVisible } from '../../../../testing/isElementVisible';
+import userEvent from '@testing-library/user-event';
 
 jest.mock('../../../shared/SortState/SortState', () => ({ sortState }) => (
   <div data-testid='sort-state'>{sortState}</div>
