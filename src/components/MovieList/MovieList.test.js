@@ -3,8 +3,8 @@
 import { render } from '@testing-library/react';
 import MovieList from './MovieList';
 import React from 'react';
-import { isElementVisible } from '../../../testing/isElementVisible';
-import { isElementNonVisible } from '../../../testing/isElementNonVisible';
+import { isElementVisible } from '../../testing/isElementVisible';
+import { isElementNonVisible } from '../../testing/isElementNonVisible';
 
 jest.mock('./MovieItem/MovieItem', () => ({ movieData }) => <div>{movieData.name}</div>);
 

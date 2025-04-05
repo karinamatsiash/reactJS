@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './MovieControl.scss';
 import PropTypes from 'prop-types';
-import MovieForm from '../../../MovieForm/MovieForm';
-import Dialog from '../../../shared/Dialog/Dialog';
+import MovieForm from '../MovieForm/MovieForm';
+import Dialog from '../shared/Dialog/Dialog';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import DeleteForm from '../../../DeleteForm/DeleteForm';
+import DeleteForm from '../DeleteForm/DeleteForm';
 import { IoCloseOutline } from 'react-icons/io5';
 
 const MovieControl = ({ movieData }) => {

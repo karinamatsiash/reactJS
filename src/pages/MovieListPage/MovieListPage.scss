@@ -1,0 +1,18 @@
+@use '../../styles/colors.scss' as *;
+
+.movies {
+  background-color: $common-background;
+  color: $text;
+  font-family: 'Montserrat';
+  padding: 20px;
+
+  &_top {
+    margin-bottom: 10px;
+  }
+
+  &_body {
+    padding: 20px;
+    background-color: $panel-background;
+    color: $text;
+  }
+}

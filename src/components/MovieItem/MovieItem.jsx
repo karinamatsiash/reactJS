@@ -1,7 +1,7 @@
 import React from 'react';
 import './MovieItem.scss';
-import MoviePoster from '../../../shared/MoviePoster/MoviePoster';
-import MovieGenres from '../../../shared/MovieGenres/MovieGenres';
+import MoviePoster from '../shared/MoviePoster/MoviePoster';
+import MovieGenres from '../shared/MovieGenres/MovieGenres';
 import PropTypes from 'prop-types';
 import MovieControl from '../MovieControl/MovieControl';
 

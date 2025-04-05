@@ -1,5 +1,5 @@
 import React from 'react';
-import MovieItem from './MovieItem/MovieItem';
+import MovieItem from '../MovieItem/MovieItem';
 import './MovieList.scss';
 import PropTypes from 'prop-types';
 

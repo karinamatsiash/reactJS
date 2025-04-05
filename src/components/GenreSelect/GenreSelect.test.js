@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import GenreSelect from './GenreSelect';
 import React from 'react';
-import { GENRES } from '../../../../constants/GenreList';
+import { GENRES } from '../../constants/GenreList';
 import userEvent from '@testing-library/user-event';
-import { isElementVisible } from '../../../../testing/isElementVisible';
+import { isElementVisible } from '../../testing/isElementVisible';
 
 describe('GenreSelect', () => {
   const onSelectMock = jest.fn();

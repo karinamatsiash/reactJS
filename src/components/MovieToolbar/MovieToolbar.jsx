@@ -1,8 +1,8 @@
 import React from 'react';
 import './MovieToolbar.scss';
-import GenreSelect from './GenreSelect/GenreSelect';
-import MovieSort from './MovieSort/MovieSort';
+import GenreSelect from '../GenreSelect/GenreSelect';
 import PropTypes from 'prop-types';
+import MovieSort from '../MovieSort/MovieSort';
 
 export const MovieToolbar = ({
   selectedSort,
