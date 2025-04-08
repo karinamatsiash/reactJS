@@ -3,15 +3,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import MovieToolbar from './MovieToolbar';
-import { isElementByTestIdVisible } from '../../../testing/isElementByTestIdVisible';
+import { isElementByTestIdVisible } from '../../testing/isElementByTestIdVisible';
 
-jest.mock('./GenreSelect/GenreSelect', () => ({ selectedGenre, onSelect }) => (
+jest.mock('../GenreSelect/GenreSelect', () => ({ selectedGenre, onSelect }) => (
   <div data-testid='genre-select' onClick={() => onSelect('Action')}>
     Selected Genre: {selectedGenre}
   </div>
 ));
 
-jest.mock('./MovieSort/MovieSort', () => ({ selectedSort, onSortBy }) => (
+jest.mock('../MovieSort/MovieSort', () => ({ selectedSort, onSortBy }) => (
   <div data-testid='movie-sort' onClick={() => onSortBy('RELEASE DATE')}>
     Selected Sort: {selectedSort?.option || 'None'}
   </div>

@@ -3,7 +3,6 @@ import './MovieItem.scss';
 import MoviePoster from '../shared/MoviePoster/MoviePoster';
 import MovieGenres from '../shared/MovieGenres/MovieGenres';
 import PropTypes from 'prop-types';
-import MovieControl from '../MovieControl/MovieControl';
 
 const MovieItem = ({ movieData }) => {
   const { imageUrl, name, releaseYear, genres } = movieData;
@@ -11,8 +10,6 @@ const MovieItem = ({ movieData }) => {
   return (
     <div className='movie'>
       <MoviePoster imageUrl={imageUrl} />
-
-      <MovieControl movieData={movieData} />
 
       <div className='movie_info'>
         <div className='movie_name'>{name}</div>

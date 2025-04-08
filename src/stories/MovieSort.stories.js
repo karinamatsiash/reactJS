@@ -1,5 +1,5 @@
 import { fn } from '@storybook/test';
-import MovieSort from '../components/MoviesPanel/MovieToolbar/MovieSort/MovieSort';
+import MovieSort from '../components/MovieSort/MovieSort';
 
 const defaultArgs = {
   onSortBy: fn(),

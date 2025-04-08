@@ -1,18 +1,28 @@
 @use '../../styles/colors.scss' as *;
 
 .movies {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
   background-color: $common-background;
   color: $text;
   font-family: 'Montserrat';
   padding: 20px;
+
+  &--empty {
+    height: 100vh;
+  }
 
   &_top {
     margin-bottom: 10px;
   }
 
   &_body {
+    display: flex;
+    flex-direction: column;
     padding: 20px;
     background-color: $panel-background;
     color: $text;
+    flex: 1;
   }
 }

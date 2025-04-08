@@ -4,6 +4,7 @@ import { SORT_OPTIONS } from '../../constants/SortOptions';
 import classNames from 'classnames';
 import SortState from '../shared/SortState/SortState';
 import PropTypes from 'prop-types';
+import { getSortOptionByKey } from '../../utils/getSortOptionByKey';
 
 export const MovieSort = ({ selectedSort, onSortBy }) => {
   const { option: selectedOption, state: sortState } = selectedSort || {};
@@ -30,7 +31,7 @@ export const MovieSort = ({ selectedSort, onSortBy }) => {
               selected: item === selectedOption
             })}
           >
-            {item}
+            {getSortOptionByKey(item)}
           </div>
           {getOptionState(item)}
         </div>

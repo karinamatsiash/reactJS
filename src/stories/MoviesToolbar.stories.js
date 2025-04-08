@@ -1,6 +1,6 @@
 import { fn } from '@storybook/test';
-import MovieToolbar from '../components/MoviesPanel/MovieToolbar/MovieToolbar';
 import { GENRES } from '../constants/GenreList';
+import MovieToolbar from '../components/MovieToolbar/MovieToolbar';
 
 const defaultArgs = {
   onSortBy: fn(),

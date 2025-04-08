@@ -6,11 +6,13 @@ import Dialog from '../shared/Dialog/Dialog';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import DeleteForm from '../DeleteForm/DeleteForm';
 import { IoCloseOutline } from 'react-icons/io5';
+import { deleteMovieFromList } from '../../api/deleteMovieFromList';
 
-const MovieControl = ({ movieData }) => {
+const MovieControl = ({ movieData, onMovieDelete }) => {
   const [showControl, setShowControl] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [isDeleteError, setIsDeleteError] = useState(false);
 
   const onControlOpen = (event) => {
     event.stopPropagation();
@@ -34,7 +36,15 @@ const MovieControl = ({ movieData }) => {
 
   const onEditDialogClose = () => setShowEditDialog(false);
   const onDeleteDialogClose = () => setShowDeleteDialog(false);
-  const onDeleteConfirm = () => setShowDeleteDialog(false);
+
+  const onDeleteConfirm = async () => {
+    const { isError } = await deleteMovieFromList(movieData.id, 'DELETE');
+    if (!isError) {
+      setShowDeleteDialog(false);
+      onMovieDelete();
+    }
+    setIsDeleteError(isError);
+  };
 
   return (
     <>
@@ -64,7 +74,7 @@ const MovieControl = ({ movieData }) => {
       )}
       {showDeleteDialog && (
         <Dialog onClose={onDeleteDialogClose} title={'DELETE MOVIE'} width='680px'>
-          <DeleteForm onConfirm={onDeleteConfirm} />
+          <DeleteForm isError={isDeleteError} onConfirm={onDeleteConfirm} />
         </Dialog>
       )}
     </>
@@ -72,7 +82,8 @@ const MovieControl = ({ movieData }) => {
 };
 
 MovieControl.propTypes = {
-  movieData: PropTypes.object.isRequired
+  movieData: PropTypes.object.isRequired,
+  onMovieDelete: PropTypes.func.isRequired
 };
 
 export default MovieControl;

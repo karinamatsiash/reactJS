@@ -1,19 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import './MovieListPage.scss';
 import MovieToolbar from '../../components/MovieToolbar/MovieToolbar';
 import MovieList from '../../components/MovieList/MovieList';
 import { GENRES } from '../../constants/GenreList';
-import { getSortOptionState } from '../../utils/getSortState';
-import { MOVIES_LIST } from '../../constants/MoviesList';
+import { getSortOptionState } from '../../utils/getSortOptionState';
+import { fetchMovieList } from '../../api/fetchMovieList';
+import { formatMoviesResponse } from '../../utils/formatMoviesResponse';
+import classNames from 'classnames';
+import { formatMoviesRequestParams } from '../../utils/formatMoviesRequestParams';
 
 const MovieListPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortCriterion, setSortCriterione] = useState(null);
   const [activeGenre, setActiveGenre] = useState(GENRES[0]);
-  const [movieList] = useState(MOVIES_LIST);
+  const [movieList, setMovieList] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+
+  const controllerRef = useRef(null);
+
+  useEffect(() => {
+    if (controllerRef.current) {
+      controllerRef.current.abort();
+    }
+
+    getMoviesList();
+
+    return () => controllerRef.current?.abort();
+  }, [searchQuery, sortCriterion, activeGenre]);
 
   const onSearchQueryChange = (value) => setSearchQuery(value);
   const onSearchClick = () => setSelectedMovie(null);
@@ -28,15 +45,37 @@ const MovieListPage = () => {
   const openMovieDetails = (id) => {
     setSelectedMovie(findMovieById(id));
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    console.log('Movie has been selected', id);
   };
 
-  const findMovieById = (id) => {
-    return movieList.find((item) => item.id === id);
+  const getMoviesList = () => {
+    setIsLoading(true);
+
+    const controller = new AbortController();
+    controllerRef.current = controller;
+
+    const fetchData = async () => {
+      const { result, isError } = await fetchMovieList(
+        formatMoviesRequestParams(searchQuery, sortCriterion, activeGenre),
+        controller
+      );
+      if (result?.data) {
+        setMovieList(formatMoviesResponse(result.data));
+      }
+      setIsError(isError);
+      setIsLoading(false);
+    };
+
+    fetchData();
   };
+
+  const findMovieById = (id) => movieList.find((item) => item.id === id);
 
   return (
-    <div className='movies'>
+    <div
+      className={classNames('movies', {
+        'movies--empty': isLoading || !movieList?.length || isError
+      })}
+    >
       <div className='movies_top'>
         {selectedMovie ? (
           <MovieDetails
@@ -56,7 +95,14 @@ const MovieListPage = () => {
           selectedSort={sortCriterion}
           onSortBy={handleSort}
         ></MovieToolbar>
-        <MovieList movieList={movieList} onMovieSelect={openMovieDetails}></MovieList>
+
+        <MovieList
+          movieList={movieList}
+          isLoading={isLoading}
+          isError={isError}
+          onMovieSelect={openMovieDetails}
+          onMovieDelete={getMoviesList}
+        />
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 export const GENRES = [
   'All',
   'Adventure',
-  'Fantacy',
+  'Fantasy',
   'Comedy',
   'Drama',
   'Crime',
-  'Romance'
+  'Animation'
 ];

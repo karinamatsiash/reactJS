@@ -2,9 +2,10 @@
 
 .movie-control {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
   color: $text;
+  cursor: pointer;
 
   &_button {
     display: flex;

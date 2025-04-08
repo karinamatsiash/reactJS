@@ -3,13 +3,13 @@
 import { render, screen } from '@testing-library/react';
 import MovieItem from './MovieItem';
 import React from 'react';
-import { isElementVisible } from '../../../../testing/isElementVisible';
+import { isElementVisible } from '../../testing/isElementVisible';
 
-jest.mock('../../../shared/MoviePoster/MoviePoster', () => () => (
+jest.mock('../shared/MoviePoster/MoviePoster', () => () => (
   <img src='mocked-image.jpg' alt='Movie Poster' />
 ));
 
-jest.mock('../../../shared/MovieGenres/MovieGenres', () => ({ genres }) => (
+jest.mock('../shared/MovieGenres/MovieGenres', () => ({ genres }) => (
   <div>{genres.join(', ')}</div>
 ));
 

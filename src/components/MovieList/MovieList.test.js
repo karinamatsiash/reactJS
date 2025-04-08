@@ -1,12 +1,17 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import MovieList from './MovieList';
 import React from 'react';
 import { isElementVisible } from '../../testing/isElementVisible';
-import { isElementNonVisible } from '../../testing/isElementNonVisible';
+import userEvent from '@testing-library/user-event';
 
-jest.mock('./MovieItem/MovieItem', () => ({ movieData }) => <div>{movieData.name}</div>);
+jest.mock('../MovieItem/MovieItem', () => ({ movieData }) => <div>{movieData.name}</div>);
+jest.mock('../shared/ErrorMessage/ErrorMessage', () => () => (
+  <div>Mocked error message</div>
+));
+jest.mock('../shared/NoData/NoData', () => () => <div>Mocked no data</div>);
+jest.mock('../shared/Loader/Loader', () => () => <div>Mocked loader</div>);
 
 describe('MovieList Component', () => {
   const mockOnMovieSelect = jest.fn();
@@ -37,7 +42,36 @@ describe('MovieList Component', () => {
   it('renders correctly when movieList is empty', () => {
     render(<MovieList movieList={[]} onMovieSelect={mockOnMovieSelect} />);
 
-    isElementNonVisible('Inception');
-    isElementNonVisible('Titanic');
+    isElementVisible('Mocked no data');
+  });
+
+  it('renders Loader on loading', () => {
+    render(
+      <MovieList movieList={[]} isLoading={true} onMovieSelect={mockOnMovieSelect} />
+    );
+
+    isElementVisible('Mocked loader');
+  });
+
+  it('renders Error message on error', () => {
+    render(
+      <MovieList
+        movieList={[]}
+        isLoading={false}
+        isError={true}
+        onMovieSelect={mockOnMovieSelect}
+      />
+    );
+
+    isElementVisible('Mocked error message');
+  });
+
+  it('renders call onMovieSelect on movie click', () => {
+    render(<MovieList movieList={movies} onMovieSelect={mockOnMovieSelect} />);
+
+    const item = screen.getAllByRole('listitem')[0];
+    userEvent.click(item);
+
+    expect(mockOnMovieSelect).toHaveBeenCalledWith(1);
   });
 });

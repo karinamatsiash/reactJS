@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import './MoviePoster.scss';
 
 const MoviePoster = ({ imageUrl }) => {
-  return <img src={`/assets/${imageUrl}`} alt='Movie Poster' />;
+  const onError = ({ target }) => (target.src = '/assets/no-image.png');
+  return <img src={imageUrl} onError={onError} alt='Movie Poster' />;
 };
 
 MoviePoster.propTypes = {
