@@ -2,12 +2,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import SearchForm from './SearchForm';
 import { isElementVisible } from '../../testing/isElementVisible';
 import userEvent from '@testing-library/user-event';
 import { isElementNonVisible } from '../../testing/isElementNonVisible';
 import { isElementByTestIdVisible } from '../../testing/isElementByTestIdVisible';
 import { isElementByPlaceholderVisible } from '../../testing/isElementByPlaceholderVisible';
+import MoviesTopSection from './MoviesTopSection';
 
 const mockOnSearch = jest.fn();
 
@@ -44,19 +44,19 @@ jest.mock(
     )
 );
 
-describe('SearchForm', () => {
+describe('MoviesTopSection', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('renders input and search button', () => {
-    render(<SearchForm onSearch={mockOnSearch} />);
+    render(<MoviesTopSection onSearch={mockOnSearch} />);
     isElementByPlaceholderVisible(/what do you want to watch/i);
     isElementVisible(/SEARCH/i);
   });
 
   it('triggers onSearch when clicking SEARCH button', () => {
-    render(<SearchForm onSearch={mockOnSearch} />);
+    render(<MoviesTopSection onSearch={mockOnSearch} />);
     const input = screen.getByTestId('input');
 
     fireEvent.change(input, { target: { value: 'Matrix' } });
@@ -66,7 +66,7 @@ describe('SearchForm', () => {
   });
 
   it('triggers onSearch when pressing Enter', () => {
-    render(<SearchForm onSearch={mockOnSearch} />);
+    render(<MoviesTopSection onSearch={mockOnSearch} />);
     const input = screen.getByTestId('input');
 
     fireEvent.change(input, { target: { value: 'Inception' } });
@@ -76,7 +76,7 @@ describe('SearchForm', () => {
   });
 
   it('opens and submits the add movie dialog', () => {
-    render(<SearchForm onSearch={mockOnSearch} />);
+    render(<MoviesTopSection onSearch={mockOnSearch} />);
 
     userEvent.click(screen.getByText(/\+ ADD MOVIE/i));
 

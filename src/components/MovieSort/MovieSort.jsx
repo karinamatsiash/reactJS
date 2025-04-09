@@ -1,6 +1,6 @@
 import React from 'react';
 import './MovieSort.scss';
-import { SORT_OPTIONS } from '../../constants/SortOptions';
+import { SORT_OPTIONS } from '../../constants/SortOption';
 import classNames from 'classnames';
 import SortState from '../shared/SortState/SortState';
 import PropTypes from 'prop-types';

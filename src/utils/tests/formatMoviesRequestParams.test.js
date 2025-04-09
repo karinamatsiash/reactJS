@@ -1,5 +1,5 @@
 import { formatMoviesRequestParams } from '../formatMoviesRequestParams';
-import { GENRES } from '../../constants/GenreList';
+import { GENRES } from '../../constants/Genres';
 
 describe('formatMoviesRequestParams', () => {
   it('should format request params correctly when all fields are provided', () => {

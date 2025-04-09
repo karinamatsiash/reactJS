@@ -1,4 +1,4 @@
-import { GENRES } from '../constants/GenreList';
+import { GENRES } from '../constants/Genres';
 
 export const formatMoviesRequestParams = (search, sortBy, genre) => ({
   search,

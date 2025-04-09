@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './SearchForm.scss';
+import './MoviesTopSection.scss';
 import PropTypes from 'prop-types';
 import MovieForm from '../MovieForm/MovieForm';
 import Dialog from '../shared/Dialog/Dialog';
@@ -8,7 +8,7 @@ import Input from '../shared/Input/Input';
 
 const DEFAULT_WIDTH = 400;
 
-const SearchForm = ({ initialValue = '', width = DEFAULT_WIDTH, onSearch }) => {
+const MoviesTopSection = ({ initialValue = '', width = DEFAULT_WIDTH, onSearch }) => {
   const [value, setValue] = useState(initialValue);
   const [movieData, setMovieData] = useState({});
   const [shouldShowMovieDialog, setShouldShowMovieDialog] = useState(false);
@@ -65,10 +65,10 @@ const SearchForm = ({ initialValue = '', width = DEFAULT_WIDTH, onSearch }) => {
   );
 };
 
-SearchForm.propTypes = {
+MoviesTopSection.propTypes = {
   initialValue: PropTypes.string,
   width: PropTypes.number,
   onSearch: PropTypes.func.isRequired
 };
 
-export default SearchForm;
+export default MoviesTopSection;

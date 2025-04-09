@@ -1,4 +1,4 @@
-describe('SearchForm', () => {
+describe('MoviesTopSection', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000', {
       onBeforeLoad: (win) => cy.stub(win.console, 'log').as('consoleLog')

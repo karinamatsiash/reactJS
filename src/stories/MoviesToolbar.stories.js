@@ -1,5 +1,5 @@
 import { fn } from '@storybook/test';
-import { GENRES } from '../constants/GenreList';
+import { GENRES } from '../constants/Genres';
 import MovieToolbar from '../components/MovieToolbar/MovieToolbar';
 
 const defaultArgs = {

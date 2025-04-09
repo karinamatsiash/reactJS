@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import MovieDetails from '../../components/MovieDetails/MovieDetails';
-import SearchForm from '../../components/SearchForm/SearchForm';
+import MoviesTopSection from '../../components/MoviesTopSection/MoviesTopSection';
 import './MovieListPage.scss';
 import MovieToolbar from '../../components/MovieToolbar/MovieToolbar';
 import MovieList from '../../components/MovieList/MovieList';
-import { GENRES } from '../../constants/GenreList';
+import { GENRES } from '../../constants/Genres';
 import { getSortOptionState } from '../../utils/getSortOptionState';
 import { fetchMovieList } from '../../api/fetchMovieList';
 import { formatMoviesResponse } from '../../utils/formatMoviesResponse';
@@ -83,7 +83,7 @@ const MovieListPage = () => {
             onSearchClick={onSearchClick}
           ></MovieDetails>
         ) : (
-          <SearchForm onSearch={onSearchQueryChange} initialValue={searchQuery} />
+          <MoviesTopSection onSearch={onSearchQueryChange} initialValue={searchQuery} />
         )}
       </div>
 

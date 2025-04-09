@@ -10,7 +10,7 @@ import { isElementByTestIdVisible } from '../../testing/isElementByTestIdVisible
 jest.mock('../../components/MovieDetails/MovieDetails', () => () => (
   <div data-testid='movie-details' />
 ));
-jest.mock('../../components/SearchForm/SearchForm', () => ({ onSearch }) => (
+jest.mock('../../components/MoviesTopSection/MoviesTopSection', () => ({ onSearch }) => (
   <input
     data-testid='search-form'
     placeholder='Search'
