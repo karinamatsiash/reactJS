@@ -25,6 +25,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:storybook/recommended'
   ],
+  plugins: ['react', 'react-hooks'],
   rules: {
     'no-unused-vars': [
       'error',
@@ -32,6 +33,8 @@ module.exports = {
     ],
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'no-undef': 'error',
-    'no-debugger': 'off'
+    'no-debugger': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn'
   }
 };

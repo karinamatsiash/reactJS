@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { GENRES } from '../../constants/GenreList';
+import { GENRES } from '../../constants/Genres';
 import Input from '../shared/Input/Input';
 import './MovieForm.scss';
-import { FORM_CONTROLS } from '../../constants/MovieForm';
+import { FORM_CONTROLS } from '../../constants/MovieFormControls';
 import Button from '../shared/Button/Button';
 import MultiSelect from '../shared/MultiSelect/MultiSelect';
+import { getFormValidity } from '../../utils/getFormValidity';
 
 const populateFormControls = (value) =>
   FORM_CONTROLS.reduce(
@@ -20,18 +21,12 @@ const MovieForm = ({ onSubmit, movieData = {} }) => {
   const [formData, setFormData] = useState(movieData);
   const [formValidation, setFormValidation] = useState(populateFormControls(true));
 
-  const getValidity = (data) =>
-    Object.entries(data).reduce(
-      (validity, [name, value]) => ({ ...validity, [name]: !!value }),
-      {}
-    );
-
   const handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
 
     const formData = Object.fromEntries(new FormData(event.target));
-    const validity = getValidity(formData);
+    const validity = getFormValidity(formData);
 
     setFormValidation(validity);
 

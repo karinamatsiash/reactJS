@@ -1,6 +1,6 @@
 import { fn } from '@storybook/test';
-import GenreSelect from '../components/MoviesPanel/MovieToolbar/GenreSelect/GenreSelect';
-import { GENRES } from '../constants/GenreList';
+import { GENRES } from '../constants/Genres';
+import GenreSelect from '../components/GenreSelect/GenreSelect';
 
 export default {
   title: 'Example/GenreSelect',

@@ -1,9 +1,9 @@
 import { fn } from '@storybook/test';
-import SearchForm from '../components/SearchForm/SearchForm';
+import MoviesTopSection from '../components/MoviesTopSection/MoviesTopSection';
 
 export default {
-  title: 'Example/SearchForm',
-  component: SearchForm,
+  title: 'Example/MoviesTopSection',
+  component: MoviesTopSection,
   parameters: {
     layout: 'centered'
   },

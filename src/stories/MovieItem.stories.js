@@ -1,4 +1,4 @@
-import MovieItem from '../components/MoviesPanel/MovieList/MovieItem/MovieItem';
+import MovieItem from '../components/MovieItem/MovieItem';
 import { MOVIES_LIST } from '../constants/MoviesList';
 
 export default {
