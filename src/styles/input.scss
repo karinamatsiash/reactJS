@@ -1,0 +1,33 @@
+@use './colors' as *;
+
+label {
+  display: block;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-size: 16px;
+  color: $red-highlight;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+input,
+textarea,
+select {
+  position: relative;
+  height: 57px;
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 4px;
+  font-weight: 400;
+  color: $text;
+  background-color: $input-background;
+  border: none;
+  box-sizing: border-box;
+}
+
+input.invalid,
+textarea.invalid {
+  border: 1px solid $red-highlight;
+}

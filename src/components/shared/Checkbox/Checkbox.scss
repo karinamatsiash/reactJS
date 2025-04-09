@@ -1,0 +1,20 @@
+@use '../../../styles/colors.scss' as *;
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: none;
+  color: $text;
+  cursor: pointer;
+}
+
+input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  accent-color: $red-highlight;
+  cursor: pointer;
+}

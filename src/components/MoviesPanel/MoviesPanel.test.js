@@ -3,6 +3,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import MoviesPanel from './MoviesPanel';
+import { isElementVisible } from '../../testing/isElementVisible';
 
 jest.mock('./MovieList/MovieList', () => ({ movieList, onMovieSelect }) => (
   <div>
@@ -30,15 +31,15 @@ describe('MoviesPanel Component', () => {
   it('renders correctly with null sort state', () => {
     render(<MoviesPanel movieList={movieList} openMovieDetails={openMovieDetails} />);
 
-    expect(screen.getByText('Sort Ascending')).toBeInTheDocument();
-    expect(screen.getByText('Sort Descending')).toBeInTheDocument();
+    isElementVisible('Sort Ascending');
+    isElementVisible('Sort Descending');
   });
 
   it('should not apply sorting when sort is null', () => {
     render(<MoviesPanel movieList={movieList} openMovieDetails={openMovieDetails} />);
 
-    expect(screen.getByText('Movie 1')).toBeInTheDocument();
-    expect(screen.getByText('Movie 2')).toBeInTheDocument();
+    isElementVisible('Movie 1');
+    isElementVisible('Movie 2');
 
     expect(screen.queryByText('Sorted:')).toBeNull();
   });
@@ -56,6 +57,6 @@ describe('MoviesPanel Component', () => {
 
     fireEvent.click(screen.getByText('Sort Ascending'));
 
-    expect(screen.getByText('Sort Ascending')).toBeInTheDocument();
+    isElementVisible('Sort Ascending');
   });
 });

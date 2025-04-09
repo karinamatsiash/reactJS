@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './App.scss';
-import Counter from './components/Counter/Counter';
 import SearchForm from './components/SearchForm/SearchForm';
 import MoviesPanel from './components/MoviesPanel/MoviesPanel';
 import MovieDetails from './components/MovieDetails/MovieDetails';
-import { MOVIES_LIST } from './constants/moviesList';
+import { MOVIES_LIST } from './constants/MoviesList';
 
 const App = () => {
   const [movie, setMovie] = useState(null);
@@ -13,7 +12,7 @@ const App = () => {
 
   const openMovieDetails = (id) => {
     setMovie(findMovieById(id));
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     console.log('Movie has been selected', id);
   };
 
@@ -33,8 +32,10 @@ const App = () => {
         )}
       </div>
 
-      <MoviesPanel movieList={MOVIES_LIST} openMovieDetails={openMovieDetails}></MoviesPanel>
-      <Counter initialValue={1} />
+      <MoviesPanel
+        movieList={MOVIES_LIST}
+        openMovieDetails={openMovieDetails}
+      ></MoviesPanel>
     </div>
   );
 };
