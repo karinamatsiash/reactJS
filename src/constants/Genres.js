@@ -7,3 +7,5 @@ export const GENRES = [
   'Crime',
   'Animation'
 ];
+
+export const DEFAULT_GENRE = GENRES[0];

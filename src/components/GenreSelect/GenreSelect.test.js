@@ -4,13 +4,18 @@ import React from 'react';
 import { GENRES } from '../../constants/GenreList';
 import userEvent from '@testing-library/user-event';
 import { isElementVisible } from '../../testing/isElementVisible';
+import { DEFAULT_GENRE } from '../../constants/Genres';
 
 describe('GenreSelect', () => {
   const onSelectMock = jest.fn();
 
   beforeEach(() => {
     render(
-      <GenreSelect genreList={GENRES} selectedGenre={GENRES[0]} onSelect={onSelectMock} />
+      <GenreSelect
+        genreList={GENRES}
+        selectedGenre={DEFAULT_GENRE}
+        onSelect={onSelectMock}
+      />
     );
   });
 
@@ -22,7 +27,7 @@ describe('GenreSelect', () => {
 
   describe('correctly highlights', () => {
     it('selected genre', () => {
-      expect(screen.getByText(GENRES[0])).toHaveClass('selected');
+      expect(screen.getByText(DEFAULT_GENRE)).toHaveClass('selected');
     });
 
     it('non-selected genre', () => {

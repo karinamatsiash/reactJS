@@ -1,22 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
-import MovieDetails from '../../components/MovieDetails/MovieDetails';
-import MoviesTopSection from '../../components/MoviesTopSection/MoviesTopSection';
 import './MovieListPage.scss';
 import MovieToolbar from '../../components/MovieToolbar/MovieToolbar';
 import MovieList from '../../components/MovieList/MovieList';
-import { GENRES } from '../../constants/Genres';
+import { DEFAULT_GENRE, GENRES } from '../../constants/Genres';
 import { getSortOptionState } from '../../utils/getSortOptionState';
 import { fetchMovieList } from '../../api/fetchMovieList';
 import { formatMoviesResponse } from '../../utils/formatMoviesResponse';
 import classNames from 'classnames';
 import { formatMoviesRequestParams } from '../../utils/formatMoviesRequestParams';
+import { Outlet, useSearchParams } from 'react-router-dom';
+import { updateSearchParam } from '../../utils/searchParams/updateSearchParam';
+import { getSortFromSearchParams } from '../../utils/searchParams/getSortFromSearchParams';
+import { getGenreFromSearchParams } from '../../utils/searchParams/getGenreFromSearchParams';
 
 const MovieListPage = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortCriterion, setSortCriterione] = useState(null);
-  const [activeGenre, setActiveGenre] = useState(GENRES[0]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchQuery = searchParams.get('search') || '';
+  const [sortCriterion, setSortCriterion] = useState(
+    getSortFromSearchParams(searchParams)
+  );
+  const [activeGenre, setActiveGenre] = useState(getGenreFromSearchParams(searchParams));
   const [movieList, setMovieList] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -32,19 +37,25 @@ const MovieListPage = () => {
     return () => controllerRef.current?.abort();
   }, [searchQuery, sortCriterion, activeGenre]);
 
-  const onSearchQueryChange = (value) => setSearchQuery(value);
-  const onSearchClick = () => setSelectedMovie(null);
+  const onSortChange = (option) => {
+    const state = getSortOptionState(sortCriterion, option);
+    const newSortCriterion = state ? { option, state } : null;
 
-  const handleSort = (newOption) => {
-    setSortCriterione((prevState) => {
-      const state = getSortOptionState(prevState, newOption);
-      return state ? { option: newOption, state } : null;
-    });
+    setSearchParams(
+      updateSearchParam(searchParams, {
+        sortOption: newSortCriterion?.option,
+        sortState: newSortCriterion?.state
+      })
+    );
+    setSortCriterion(newSortCriterion);
   };
 
-  const openMovieDetails = (id) => {
-    setSelectedMovie(findMovieById(id));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const onGenreChange = (genre) => {
+    const genreParam = genre === DEFAULT_GENRE ? null : genre;
+    setSearchParams(updateSearchParam(searchParams, { genre: genreParam }), {
+      preventScrollReset: true
+    });
+    setActiveGenre(genre);
   };
 
   const getMoviesList = () => {
@@ -68,8 +79,6 @@ const MovieListPage = () => {
     fetchData();
   };
 
-  const findMovieById = (id) => movieList.find((item) => item.id === id);
-
   return (
     <div
       className={classNames('movies', {
@@ -77,30 +86,22 @@ const MovieListPage = () => {
       })}
     >
       <div className='movies_top'>
-        {selectedMovie ? (
-          <MovieDetails
-            movieData={selectedMovie}
-            onSearchClick={onSearchClick}
-          ></MovieDetails>
-        ) : (
-          <MoviesTopSection onSearch={onSearchQueryChange} initialValue={searchQuery} />
-        )}
+        <Outlet />
       </div>
 
       <div className='movies_body'>
         <MovieToolbar
           selectedGenre={activeGenre}
           genreList={GENRES}
-          onGenreSelect={setActiveGenre}
+          onGenreSelect={onGenreChange}
           selectedSort={sortCriterion}
-          onSortBy={handleSort}
+          onSortBy={onSortChange}
         ></MovieToolbar>
 
         <MovieList
           movieList={movieList}
           isLoading={isLoading}
           isError={isError}
-          onMovieSelect={openMovieDetails}
           onMovieDelete={getMoviesList}
         />
       </div>

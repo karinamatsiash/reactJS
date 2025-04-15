@@ -5,6 +5,7 @@ import MovieList from './MovieList';
 import React from 'react';
 import { isElementVisible } from '../../testing/isElementVisible';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 
 jest.mock('../MovieItem/MovieItem', () => ({ movieData }) => <div>{movieData.name}</div>);
 jest.mock('../shared/ErrorMessage/ErrorMessage', () => () => (
@@ -33,7 +34,11 @@ describe('MovieList Component', () => {
   ];
 
   it('renders a list of movies correctly', () => {
-    render(<MovieList movieList={movies} onMovieSelect={mockOnMovieSelect} />);
+    render(
+      <MemoryRouter>
+        <MovieList movieList={movies} onMovieSelect={mockOnMovieSelect} />
+      </MemoryRouter>
+    );
 
     isElementVisible('Inception');
     isElementVisible('Titanic');

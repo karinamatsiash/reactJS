@@ -6,15 +6,18 @@ import NoData from '../shared/NoData/NoData';
 import Loader from '../shared/Loader/Loader';
 import ErrorMessage from '../shared/ErrorMessage/ErrorMessage';
 import MovieControl from '../MovieControl/MovieControl';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
-const MovieList = ({ movieList, onMovieSelect, isError, isLoading, onMovieDelete }) => {
-  const onMovieClick = (event) => {
-    // TODO: event.target is IMG instead of LI
-    const listItem = event.target.closest('li');
+const MovieList = ({ movieList, isError, isLoading, onMovieDelete }) => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-    if (!listItem) return;
-
-    onMovieSelect(+listItem.id);
+  const onMovieSelect = (id) => {
+    navigate({
+      pathname: `/${id}`,
+      search: searchParams.toString()
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (isLoading) {
@@ -36,8 +39,8 @@ const MovieList = ({ movieList, onMovieSelect, isError, isLoading, onMovieDelete
   return (
     <ul className='movie-list'>
       {movieList.map((item) => (
-        <li key={item.id} id={item.id} onClick={onMovieClick}>
-          <MovieItem movieData={item} />
+        <li key={item.id} id={item.id}>
+          <MovieItem movieData={item} onClick={() => onMovieSelect(item.id)} />
           <MovieControl movieData={item} onMovieDelete={onMovieDelete} />
         </li>
       ))}
@@ -49,7 +52,6 @@ MovieList.propTypes = {
   movieList: PropTypes.array,
   isError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  onMovieSelect: PropTypes.func.isRequired,
   onMovieDelete: PropTypes.func.isRequired
 };
 

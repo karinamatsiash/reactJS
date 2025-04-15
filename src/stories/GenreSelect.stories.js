@@ -1,5 +1,5 @@
 import { fn } from '@storybook/test';
-import { GENRES } from '../constants/Genres';
+import { DEFAULT_GENRE, GENRES } from '../constants/Genres';
 import GenreSelect from '../components/GenreSelect/GenreSelect';
 
 export default {
@@ -9,7 +9,7 @@ export default {
     layout: 'centered'
   },
   tags: ['autodocs'],
-  args: { onSelect: fn(), genreList: GENRES, selectedGenre: GENRES[0] }
+  args: { onSelect: fn(), genreList: GENRES, selectedGenre: DEFAULT_GENRE }
 };
 
 export const Default = {
