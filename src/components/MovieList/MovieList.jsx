@@ -6,7 +6,7 @@ import NoData from '../shared/NoData/NoData';
 import Loader from '../shared/Loader/Loader';
 import ErrorMessage from '../shared/ErrorMessage/ErrorMessage';
 import MovieControl from '../MovieControl/MovieControl';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router';
 
 const MovieList = ({ movieList, isError, isLoading, onMovieDelete }) => {
   const navigate = useNavigate();

@@ -4,8 +4,8 @@ import MoviePoster from '../shared/MoviePoster/MoviePoster';
 import { VscSearch } from 'react-icons/vsc';
 import MovieGenres from '../shared/MovieGenres/MovieGenres';
 import PropTypes from 'prop-types';
-import { Link, useLoaderData, useSearchParams } from 'react-router-dom';
 import { formatMovieResponse } from '../../utils/formatMoviesResponse';
+import { Link, useLoaderData, useSearchParams } from 'react-router';
 
 const MovieDetails = () => {
   const [searchParams] = useSearchParams();

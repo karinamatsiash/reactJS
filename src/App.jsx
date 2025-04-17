@@ -1,9 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 import MovieListPage from './pages/MovieListPage/MovieListPage';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MoviesTopSection from './components/MoviesTopSection/MoviesTopSection';
 import MovieDetailsLoader from './api/routes/MovieDetailsLoader';
 import Loader from './components/shared/Loader/Loader';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 
 const MovieDetails = lazy(() => import('./components/MovieDetails/MovieDetails'));
 

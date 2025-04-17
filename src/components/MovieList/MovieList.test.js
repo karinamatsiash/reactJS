@@ -1,21 +1,28 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import MovieList from './MovieList';
 import React from 'react';
 import { isElementVisible } from '../../testing/isElementVisible';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter } from 'react-router-dom';
+import { renderWithRouter } from '../../testing/renderWithRouter';
+import { useNavigate } from 'react-router';
 
-jest.mock('../MovieItem/MovieItem', () => ({ movieData }) => <div>{movieData.name}</div>);
+jest.mock('../MovieItem/MovieItem', () => ({ movieData, onClick }) => (
+  <div onClick={onClick}>{movieData.name}</div>
+));
 jest.mock('../shared/ErrorMessage/ErrorMessage', () => () => (
   <div>Mocked error message</div>
 ));
 jest.mock('../shared/NoData/NoData', () => () => <div>Mocked no data</div>);
 jest.mock('../shared/Loader/Loader', () => () => <div>Mocked loader</div>);
 
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useNavigate: jest.fn()
+}));
+
 describe('MovieList Component', () => {
-  const mockOnMovieSelect = jest.fn();
   const movies = [
     {
       id: '1',
@@ -32,51 +39,56 @@ describe('MovieList Component', () => {
       genres: ['Romance', 'Drama']
     }
   ];
+  const mockNavigate = jest.fn();
+
+  beforeEach(() => {
+    window.scrollTo = jest.fn();
+    useNavigate.mockImplementation(() => mockNavigate);
+  });
 
   it('renders a list of movies correctly', () => {
-    render(
-      <MemoryRouter>
-        <MovieList movieList={movies} onMovieSelect={mockOnMovieSelect} />
-      </MemoryRouter>
-    );
+    renderWithRouter({
+      children: <MovieList movieList={movies} />
+    });
 
     isElementVisible('Inception');
     isElementVisible('Titanic');
   });
 
   it('renders correctly when movieList is empty', () => {
-    render(<MovieList movieList={[]} onMovieSelect={mockOnMovieSelect} />);
-
+    renderWithRouter({
+      children: <MovieList movieList={[]} />
+    });
     isElementVisible('Mocked no data');
   });
 
   it('renders Loader on loading', () => {
-    render(
-      <MovieList movieList={[]} isLoading={true} onMovieSelect={mockOnMovieSelect} />
-    );
+    renderWithRouter({
+      children: <MovieList movieList={[]} isLoading={true} />
+    });
 
     isElementVisible('Mocked loader');
   });
 
   it('renders Error message on error', () => {
-    render(
-      <MovieList
-        movieList={[]}
-        isLoading={false}
-        isError={true}
-        onMovieSelect={mockOnMovieSelect}
-      />
-    );
-
+    renderWithRouter({
+      children: <MovieList movieList={[]} isLoading={false} isError={true} />
+    });
     isElementVisible('Mocked error message');
   });
 
-  it('renders call onMovieSelect on movie click', () => {
-    render(<MovieList movieList={movies} onMovieSelect={mockOnMovieSelect} />);
+  it('navigate to correct page on movie click', () => {
+    renderWithRouter({
+      children: <MovieList movieList={movies} />,
+      params: { initialEntries: ['/?search=abc'] }
+    });
 
-    const item = screen.getAllByRole('listitem')[0];
+    const item = screen.getByText('Inception');
     userEvent.click(item);
 
-    expect(mockOnMovieSelect).toHaveBeenCalledWith(1);
+    expect(mockNavigate).toHaveBeenCalledWith({
+      pathname: '/1',
+      search: 'search=abc'
+    });
   });
 });

@@ -8,7 +8,7 @@ import { fetchMovieList } from '../../api/fetchMovieList';
 import { formatMoviesResponse } from '../../utils/formatMoviesResponse';
 import classNames from 'classnames';
 import { formatMoviesRequestParams } from '../../utils/formatMoviesRequestParams';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router';
 import { updateSearchParam } from '../../utils/searchParams/updateSearchParam';
 import { getSortFromSearchParams } from '../../utils/searchParams/getSortFromSearchParams';
 import { getGenreFromSearchParams } from '../../utils/searchParams/getGenreFromSearchParams';

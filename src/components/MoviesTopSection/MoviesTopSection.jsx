@@ -5,8 +5,8 @@ import MovieForm from '../MovieForm/MovieForm';
 import Dialog from '../shared/Dialog/Dialog';
 import Button from '../shared/Button/Button';
 import Input from '../shared/Input/Input';
-import { useSearchParams } from 'react-router-dom';
 import { updateSearchParam } from '../../utils/searchParams/updateSearchParam';
+import { useSearchParams } from 'react-router';
 
 const DEFAULT_WIDTH = 400;
 

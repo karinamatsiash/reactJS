@@ -1,39 +1,41 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import MovieDetails from './MovieDetails';
 import { isElementVisible } from '../../testing/isElementVisible';
-import { useLoaderData, MemoryRouter } from 'react-router-dom';
+import { renderWithRouter } from '../../testing/renderWithRouter';
 
 const mockMovieData = {
-  result: {
-    title: 'The Dark Knight',
-    vote_average: 9.0,
-    poster_path: 'poster.jpg',
-    release_date: '2008-07-18',
-    runtime: 152,
-    genres: ['Action', 'Drama'],
-    overview: 'A gritty crime thriller in Gotham.'
+  movieData: {
+    result: {
+      title: 'The Dark Knight',
+      vote_average: 9.0,
+      poster_path: 'poster.jpg',
+      release_date: '2008-07-18',
+      runtime: 152,
+      genres: ['Action', 'Drama'],
+      overview: 'A gritty crime thriller in Gotham.'
+    }
   }
 };
 
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useLoaderData: () => mockMovieData
+}));
+
 describe('MovieDetails', () => {
-  beforeEach(() => {
-    useLoaderData.mockReturnValue(mockMovieData);
-  });
-
   it('renders the MovieDetails component correctly', () => {
-    render(
-      <MemoryRouter initialEntries={['/?search=abc']}>
-        <MovieDetails />
-      </MemoryRouter>
-    );
+    renderWithRouter({
+      children: <MovieDetails />,
+      params: { initialEntries: ['/?search=abc'] }
+    });
 
-    isElementVisible('Test Movie');
-    isElementVisible('8.5');
-    isElementVisible('2014');
-    isElementVisible('120 min');
-    isElementVisible('A test description for the test movie.');
-    isElementVisible('Action, Adventure');
+    isElementVisible('The Dark Knight');
+    isElementVisible('9');
+    isElementVisible('2008');
+    isElementVisible('2h 32min');
+    isElementVisible('A gritty crime thriller in Gotham.');
+    isElementVisible('Action, Drama');
 
     expect(screen.getByRole('link')).toHaveAttribute('href', '/?search=abc');
   });
