@@ -28,7 +28,9 @@ const MoviesTopSection = ({ width = DEFAULT_WIDTH }) => {
   };
 
   const updateSearchValue = (search) =>
-    setSearchParams(updateSearchParam(searchParams, { search }));
+    setSearchParams(updateSearchParam(searchParams, { search }), {
+      preventScrollReset: true
+    });
 
   const showMovieDialog = () => setShouldShowMovieDialog(true);
   const closeMovieDialog = () => setShouldShowMovieDialog(false);

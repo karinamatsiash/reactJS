@@ -45,7 +45,8 @@ const MovieListPage = () => {
       updateSearchParam(searchParams, {
         sortOption: newSortCriterion?.option,
         sortState: newSortCriterion?.state
-      })
+      }),
+      { preventScrollReset: true }
     );
     setSortCriterion(newSortCriterion);
   };
@@ -82,7 +83,7 @@ const MovieListPage = () => {
   return (
     <div
       className={classNames('movies', {
-        'movies--empty': isLoading || !movieList?.length || isError
+        'movies--empty': !movieList?.length || isError
       })}
     >
       <div className='movies_top'>

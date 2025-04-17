@@ -20,10 +20,6 @@ const MovieList = ({ movieList, isError, isLoading, onMovieDelete }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   if (isError && !isLoading) {
     return (
       <div className='movies-error'>
@@ -37,14 +33,21 @@ const MovieList = ({ movieList, isError, isLoading, onMovieDelete }) => {
   }
 
   return (
-    <ul className='movie-list'>
-      {movieList.map((item) => (
-        <li key={item.id} id={item.id}>
-          <MovieItem movieData={item} onClick={() => onMovieSelect(item.id)} />
-          <MovieControl movieData={item} onMovieDelete={onMovieDelete} />
-        </li>
-      ))}
-    </ul>
+    <>
+      {isLoading && (
+        <div className='loader-wrapper'>
+          <Loader />
+        </div>
+      )}
+      <ul className='movie-list'>
+        {movieList.map((item) => (
+          <li key={item.id} id={item.id}>
+            <MovieItem movieData={item} onClick={() => onMovieSelect(item.id)} />
+            <MovieControl movieData={item} onMovieDelete={onMovieDelete} />
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 

@@ -10,11 +10,7 @@ const MovieDetails = lazy(() => import('./components/MovieDetails/MovieDetails')
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <>
-        <MovieListPage />
-      </>
-    ),
+    element: <MovieListPage />,
     children: [
       { path: '/', element: <MoviesTopSection /> },
       {
