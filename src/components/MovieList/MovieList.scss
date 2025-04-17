@@ -1,0 +1,18 @@
+.movie-list {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    position: relative;
+  }
+}
+
+.movies-error {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}

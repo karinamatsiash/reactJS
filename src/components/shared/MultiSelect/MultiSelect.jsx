@@ -8,7 +8,7 @@ import Input from '../Input/Input';
 import Checkbox from '../Checkbox/Checkbox';
 
 const SEPARATOR = ', ';
-const formatGenres = (values) => [...values].join(SEPARATOR);
+const formatItems = (values) => [...values].join(SEPARATOR);
 
 const MultiSelect = ({
   placeholder,
@@ -48,7 +48,7 @@ const MultiSelect = ({
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpened(false);
-      onChange({ name, value: formatGenres(values) });
+      onChange({ name, value: formatItems(values) });
     }
   };
 
@@ -58,7 +58,7 @@ const MultiSelect = ({
     setIsDropdownOpened((prevState) => !prevState);
   };
 
-  const handleGenreSelect = ({ target }) => {
+  const handleItemSelect = ({ target }) => {
     setValues((prevState) => {
       const newState = new Set(prevState);
       if (target.checked) {
@@ -76,7 +76,7 @@ const MultiSelect = ({
         <Input
           name={name}
           className={classNames('multi-select_input', { invalid })}
-          value={values.size > 0 ? formatGenres(values) : ''}
+          value={values.size > 0 ? formatItems(values) : ''}
           placeholder={placeholder}
           label={label}
           onClick={handleInputClick}
@@ -90,7 +90,7 @@ const MultiSelect = ({
         </div>
 
         {isDropdownOpened && (
-          <div className='multi-select_dropdown' id='genre-dropdown'>
+          <div className='multi-select_dropdown'>
             {options.map((option) => (
               <div key={option}>
                 <Checkbox
@@ -98,7 +98,7 @@ const MultiSelect = ({
                   value={option}
                   checked={values.has(option)}
                   option={option}
-                  onChange={handleGenreSelect}
+                  onChange={handleItemSelect}
                 />
               </div>
             ))}

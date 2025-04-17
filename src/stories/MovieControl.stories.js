@@ -1,5 +1,5 @@
 import React from 'react';
-import MovieControl from '../components/MoviesPanel/MovieList/MovieControl/MovieControl';
+import MovieControl from '../components/MovieControl/MovieControl';
 
 export default {
   title: 'Example/MovieControl',
