@@ -11,12 +11,12 @@ describe('GenreSelect', () => {
   });
 
   it('highlight selected genre', () => {
-    cy.contains('COMEDY').click();
-    cy.contains('COMEDY').should('satisfy', hasClass('selected'));
+    cy.contains('Comedy').click();
+    cy.contains('Comedy').should('satisfy', hasClass('selected'));
   });
 
   it('does not highlight non-selected genre', () => {
-    cy.contains('HORROR').click();
-    cy.contains('COMEDY').should('not.satisfy', hasClass('selected'));
+    cy.contains('Crime').click();
+    cy.contains('Comedy').should('not.satisfy', hasClass('selected'));
   });
 });

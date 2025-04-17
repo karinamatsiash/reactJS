@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
 import React from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { screen, waitFor, fireEvent } from '@testing-library/react';
 import MovieListPage from './MovieListPage';
 import * as fetchApi from '../../api/fetchMovieList';
 import { isElementVisible } from '../../testing/isElementVisible';
 import { isElementByTestIdVisible } from '../../testing/isElementByTestIdVisible';
+import { renderWithRouter } from '../../testing/renderWithRouter';
 
 jest.mock('../../components/MovieDetails/MovieDetails', () => () => (
   <div data-testid='movie-details' />
@@ -45,6 +46,11 @@ jest.mock(
     )
 );
 
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  Outlet: () => <div data-testid='outlet' />
+}));
+
 describe('MovieListPage', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -71,28 +77,12 @@ describe('MovieListPage', () => {
 
     jest.spyOn(fetchApi, 'fetchMovieList').mockResolvedValueOnce(mockData);
 
-    render(<MovieListPage />);
+    renderWithRouter({
+      children: <MovieListPage />
+    });
 
     await waitFor(() => {
       isElementVisible(/Test Movie/i);
-    });
-  });
-
-  it('handles search input change', async () => {
-    const mockData = {
-      result: { data: [] },
-      isError: false
-    };
-
-    jest.spyOn(fetchApi, 'fetchMovieList').mockResolvedValue(mockData);
-
-    render(<MovieListPage />);
-
-    const searchInput = screen.getByTestId('search-form');
-    fireEvent.change(searchInput, { target: { value: 'Batman' } });
-
-    await waitFor(() => {
-      expect(fetchApi.fetchMovieList).toHaveBeenCalled();
     });
   });
 
@@ -102,9 +92,11 @@ describe('MovieListPage', () => {
       isError: false
     };
 
-    jest.spyOn(fetchApi, 'fetchMovieList').mockResolvedValue(mockData);
+    jest.spyOn(fetchApi, 'fetchMovieList').mockResolvedValue(mockData); // fixes the bug
 
-    render(<MovieListPage />);
+    renderWithRouter({
+      children: <MovieListPage />
+    });
 
     fireEvent.click(screen.getByTestId('genre-button'));
     fireEvent.click(screen.getByTestId('sort-button'));
@@ -114,38 +106,17 @@ describe('MovieListPage', () => {
     });
   });
 
-  it('opens movie details and scrolls to top on movie click', async () => {
+  it('opens correct outet', async () => {
     const mockData = {
-      result: {
-        data: [
-          {
-            id: 42,
-            title: 'Interstellar',
-            poster_path: 'interstellar.jpg',
-            release_date: '2014-11-07',
-            genres: ['Sci-Fi'],
-            vote_average: 9,
-            runtime: 169,
-            overview: 'A team travels through a wormhole.'
-          }
-        ]
-      },
+      result: { data: [] },
       isError: false
     };
-
     jest.spyOn(fetchApi, 'fetchMovieList').mockResolvedValue(mockData);
-    const scrollToMock = jest.fn();
-    window.scrollTo = scrollToMock;
 
-    render(<MovieListPage />);
-
-    await waitFor(() => {
-      isElementVisible('Interstellar');
+    renderWithRouter({
+      children: <MovieListPage />
     });
 
-    fireEvent.click(screen.getByText('Interstellar'));
-
-    isElementByTestIdVisible('movie-details');
-    expect(scrollToMock).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
+    isElementByTestIdVisible('outlet');
   });
 });

@@ -16,3 +16,13 @@
   align-items: center;
   justify-content: center;
 }
+
+.loader-wrapper {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  line-height: 100vh;
+  background-color: rgb(0, 0, 0, 0.7);
+}
