@@ -4,16 +4,22 @@ import MoviePoster from '../shared/MoviePoster/MoviePoster';
 import { VscSearch } from 'react-icons/vsc';
 import MovieGenres from '../shared/MovieGenres/MovieGenres';
 import PropTypes from 'prop-types';
+import { formatMovieResponse } from '../../utils/formatMoviesResponse';
+import { Link, useLoaderData, useSearchParams } from 'react-router';
 
-const MovieDetails = ({ movieData, onSearchClick }) => {
+const MovieDetails = () => {
+  const [searchParams] = useSearchParams();
+  const { movieData } = useLoaderData();
   const { imageUrl, name, rating, releaseYear, duration, genres, description } =
-    movieData;
+    formatMovieResponse(movieData.result);
 
   return (
     <div className='movie-details'>
       <header className='movie-header'>
         <div className='movie-header_label'>{'netflixroulette'}</div>
-        <VscSearch className='movie-header_search' onClick={onSearchClick} />
+        <Link to={{ pathname: '/', search: searchParams.toString() }}>
+          <VscSearch className='movie-header_search' />
+        </Link>
       </header>
 
       <div className='d-flex'>
@@ -42,7 +48,6 @@ const MovieDetails = ({ movieData, onSearchClick }) => {
 };
 
 MovieDetails.propTypes = {
-  movieData: PropTypes.object.isRequired,
   onSearchClick: PropTypes.func.isRequired
 };
 

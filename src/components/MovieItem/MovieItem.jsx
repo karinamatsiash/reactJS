@@ -4,11 +4,11 @@ import MoviePoster from '../shared/MoviePoster/MoviePoster';
 import MovieGenres from '../shared/MovieGenres/MovieGenres';
 import PropTypes from 'prop-types';
 
-const MovieItem = ({ movieData }) => {
+const MovieItem = ({ movieData, onClick }) => {
   const { imageUrl, name, releaseYear, genres } = movieData;
 
   return (
-    <div className='movie'>
+    <div className='movie' onClick={onClick}>
       <MoviePoster imageUrl={imageUrl} />
 
       <div className='movie_info'>
@@ -21,7 +21,8 @@ const MovieItem = ({ movieData }) => {
 };
 
 MovieItem.propTypes = {
-  movieData: PropTypes.object.isRequired
+  movieData: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default MovieItem;

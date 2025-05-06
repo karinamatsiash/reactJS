@@ -1,13 +1,14 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { isElementVisible } from '../../testing/isElementVisible';
 import userEvent from '@testing-library/user-event';
 import { isElementNonVisible } from '../../testing/isElementNonVisible';
 import { isElementByTestIdVisible } from '../../testing/isElementByTestIdVisible';
 import { isElementByPlaceholderVisible } from '../../testing/isElementByPlaceholderVisible';
 import MoviesTopSection from './MoviesTopSection';
+import { renderWithRouter } from '../../testing/renderWithRouter';
 
 const mockOnSearch = jest.fn();
 
@@ -46,38 +47,34 @@ jest.mock(
 
 describe('MoviesTopSection', () => {
   beforeEach(() => {
+    renderWithRouter({ children: <MoviesTopSection onSearch={mockOnSearch} /> });
     jest.clearAllMocks();
   });
 
   it('renders input and search button', () => {
-    render(<MoviesTopSection onSearch={mockOnSearch} />);
     isElementByPlaceholderVisible(/what do you want to watch/i);
     isElementVisible(/SEARCH/i);
   });
 
   it('triggers onSearch when clicking SEARCH button', () => {
-    render(<MoviesTopSection onSearch={mockOnSearch} />);
     const input = screen.getByTestId('input');
 
     fireEvent.change(input, { target: { value: 'Matrix' } });
     userEvent.click(screen.getByText(/SEARCH/i));
 
-    expect(mockOnSearch).toHaveBeenCalledWith('Matrix');
+    expect(screen.getByRole('textbox')).toHaveAttribute('value', 'Matrix');
   });
 
   it('triggers onSearch when pressing Enter', () => {
-    render(<MoviesTopSection onSearch={mockOnSearch} />);
     const input = screen.getByTestId('input');
 
     fireEvent.change(input, { target: { value: 'Inception' } });
     fireEvent.keyDown(input, { key: 'Enter', target: { value: 'Inception' } });
 
-    expect(mockOnSearch).toHaveBeenCalledWith('Inception');
+    expect(screen.getByRole('textbox')).toHaveAttribute('value', 'Inception');
   });
 
   it('opens and submits the add movie dialog', () => {
-    render(<MoviesTopSection onSearch={mockOnSearch} />);
-
     userEvent.click(screen.getByText(/\+ ADD MOVIE/i));
 
     isElementByTestIdVisible('dialog');

@@ -1,5 +1,5 @@
 import { formatMoviesRequestParams } from '../formatMoviesRequestParams';
-import { GENRES } from '../../constants/Genres';
+import { DEFAULT_GENRE } from '../../constants/Genres';
 
 describe('formatMoviesRequestParams', () => {
   it('should format request params correctly when all fields are provided', () => {
@@ -20,7 +20,7 @@ describe('formatMoviesRequestParams', () => {
   it('should use an empty filter for the default genre', () => {
     const search = 'Inception';
     const sortBy = { option: 'Release Date', state: 'ASC' };
-    const genre = GENRES[0];
+    const genre = DEFAULT_GENRE;
 
     const result = formatMoviesRequestParams(search, sortBy, genre);
 

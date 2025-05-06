@@ -5,26 +5,36 @@ import MovieForm from '../MovieForm/MovieForm';
 import Dialog from '../shared/Dialog/Dialog';
 import Button from '../shared/Button/Button';
 import Input from '../shared/Input/Input';
+import { updateSearchParam } from '../../utils/searchParams/updateSearchParam';
+import { useSearchParams } from 'react-router';
 
 const DEFAULT_WIDTH = 400;
 
-const MoviesTopSection = ({ initialValue = '', width = DEFAULT_WIDTH, onSearch }) => {
-  const [value, setValue] = useState(initialValue);
+const MoviesTopSection = ({ width = DEFAULT_WIDTH }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [value, setValue] = useState(searchParams.get('search') || '');
   const [movieData, setMovieData] = useState({});
   const [shouldShowMovieDialog, setShouldShowMovieDialog] = useState(false);
 
-  const onSearchClick = () => onSearch(value);
+  const onSearchClick = () => updateSearchValue(value);
 
   const onChange = (event) => setValue(event.target.value);
 
   const onKeyDown = ({ key, target }) => {
     if (key === 'Enter') {
-      onSearch(target.value);
+      updateSearchValue(target.value);
     }
   };
 
+  const updateSearchValue = (search) =>
+    setSearchParams(updateSearchParam(searchParams, { search }), {
+      preventScrollReset: true
+    });
+
   const showMovieDialog = () => setShouldShowMovieDialog(true);
   const closeMovieDialog = () => setShouldShowMovieDialog(false);
+
   const onAddMovieSubmit = (formData) => {
     setMovieData(formData);
     closeMovieDialog();
@@ -66,9 +76,7 @@ const MoviesTopSection = ({ initialValue = '', width = DEFAULT_WIDTH, onSearch }
 };
 
 MoviesTopSection.propTypes = {
-  initialValue: PropTypes.string,
-  width: PropTypes.number,
-  onSearch: PropTypes.func.isRequired
+  width: PropTypes.number
 };
 
 export default MoviesTopSection;
