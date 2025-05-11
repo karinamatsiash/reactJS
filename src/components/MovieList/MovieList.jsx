@@ -3,10 +3,10 @@ import MovieItem from '../MovieItem/MovieItem';
 import './MovieList.scss';
 import PropTypes from 'prop-types';
 import NoData from '../shared/NoData/NoData';
-import Loader from '../shared/Loader/Loader';
 import ErrorMessage from '../shared/ErrorMessage/ErrorMessage';
 import MovieControl from '../MovieControl/MovieControl';
 import { useNavigate, useSearchParams } from 'react-router';
+import GeneralLoader from '../shared/GeneralLoader/GeneralLoader';
 
 const MovieList = ({ movieList, isError, isLoading, onMovieDelete }) => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const MovieList = ({ movieList, isError, isLoading, onMovieDelete }) => {
     <>
       {isLoading && (
         <div className='loader-wrapper'>
-          <Loader />
+          <GeneralLoader />
         </div>
       )}
       <ul className='movie-list'>

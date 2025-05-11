@@ -11,7 +11,7 @@ export default {
       name: 'Interstellar',
       id: '3498',
       imageUrl: 'Interstellar_film_poster.jpg',
-      releaseYear: 2014,
+      releaseDate: 2014,
       genres: ['ADVENTURE', 'DRAMA'],
       rating: '8.1',
       duration: '1h 45min',

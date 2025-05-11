@@ -11,27 +11,24 @@ const SEPARATOR = ', ';
 const formatItems = (values) => [...values].join(SEPARATOR);
 
 const MultiSelect = ({
-  placeholder,
   options,
-  label,
   className,
-  defaultValue,
   name,
-  required,
   errorMessage,
   isValid,
+  value,
   onChange,
-  onBlur
+  ...inputArgs
 }) => {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
-  const [values, setValues] = useState(new Set(defaultValue?.split(SEPARATOR)));
+  const [values, setValues] = useState(new Set(value?.split(SEPARATOR)));
 
   const dropdownRef = useRef(null);
-  const invalid = required && !isValid;
+  const invalid = !isValid;
 
   useEffect(() => {
-    setValues(new Set(defaultValue ? defaultValue.split(SEPARATOR) : []));
-  }, [defaultValue]);
+    setValues(new Set(value ? value.split(SEPARATOR) : []));
+  }, [value]);
 
   useEffect(() => {
     if (isDropdownOpened) {
@@ -43,18 +40,19 @@ const MultiSelect = ({
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [isDropdownOpened, values, name, onChange]);
+  }, [isDropdownOpened, values]);
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpened(false);
-      onChange({ name, value: formatItems(values) });
+      onChange({
+        target: { name, value: formatItems(values) }
+      });
     }
   };
 
   const handleInputClick = (event) => {
     event.stopPropagation();
-    onBlur(event);
     setIsDropdownOpened((prevState) => !prevState);
   };
 
@@ -74,15 +72,14 @@ const MultiSelect = ({
     <div className={`multi-select ${className}`}>
       <div className='multi-select_input-wrapper' ref={dropdownRef}>
         <Input
-          name={name}
           className={classNames('multi-select_input', { invalid })}
           value={values.size > 0 ? formatItems(values) : ''}
-          placeholder={placeholder}
-          label={label}
           onClick={handleInputClick}
           isValid={isValid}
+          onChange={onChange}
           required
           readOnly
+          {...inputArgs}
         />
 
         <div className='multi-select_arrow' onClick={handleInputClick}>
@@ -117,12 +114,11 @@ MultiSelect.propTypes = {
   className: PropTypes.string,
   options: PropTypes.array.isRequired,
   name: PropTypes.string.isRequired,
-  defaultValue: PropTypes.array,
+  value: PropTypes.array,
   required: PropTypes.bool,
   isValid: PropTypes.bool,
   errorMessage: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired
 };
 
 export default MultiSelect;

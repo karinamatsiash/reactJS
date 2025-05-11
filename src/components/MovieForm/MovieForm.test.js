@@ -1,58 +1,13 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import MovieForm from './MovieForm';
 import userEvent from '@testing-library/user-event';
 import { isElementVisible } from '../../testing/isElementVisible';
-import { isElementByTestIdVisible } from '../../testing/isElementByTestIdVisible';
+import { isElementByPlaceholderVisible } from '../../testing/isElementByPlaceholderVisible';
 
 const mockOnSubmit = jest.fn();
-
-jest.mock(
-  '../shared/Input/Input',
-  () =>
-    ({ name = 'mockInput', onChange, onBlur, defaultValue = '', ...rest }) => {
-      const safeProps = { ...rest };
-      delete safeProps.isValid;
-      delete safeProps.errorMessage;
-
-      return (
-        <input
-          name={name}
-          data-testid={`input-${name}`}
-          defaultValue={defaultValue}
-          onChange={(e) => onChange({ name, value: e.target.value })}
-          onBlur={() => onBlur({ target: { name } })}
-          {...safeProps}
-        />
-      );
-    }
-);
-
-jest.mock(
-  '../shared/MultiSelect/MultiSelect',
-  () =>
-    ({ name = 'genres', onChange, onBlur }) => {
-      return (
-        <select
-          data-testid='multi-select'
-          name={name}
-          multiple
-          onChange={(e) => {
-            const values = Array.from(e.target.options)
-              .filter((opt) => opt.selected)
-              .map((opt) => opt.value);
-            onChange({ name, value: values });
-          }}
-          onBlur={(e) => onBlur({ target: { name: e.target.name } })}
-        >
-          <option value='Action'>Action</option>
-          <option value='Drama'>Drama</option>
-        </select>
-      );
-    }
-);
 
 jest.mock('../shared/Button/Button', () => ({ children, ...props }) => {
   const safeProps = { ...props };
@@ -61,48 +16,74 @@ jest.mock('../shared/Button/Button', () => ({ children, ...props }) => {
 });
 
 describe('MovieForm', () => {
+  const movieData = {
+    name: 'Inception',
+    releaseDate: '2010-07-16',
+    imageUrl: 'https://example.com/inception.jpg',
+    rating: '8.8',
+    duration: '148',
+    genres: 'Comedy, Drama',
+    description: 'A mind-bending thriller directed by Christopher Nolan'
+  };
+
   beforeEach(() => {
+    render(<MovieForm onSubmit={mockOnSubmit} movieData={movieData} />);
     jest.clearAllMocks();
   });
 
   it('renders form inputs and buttons', () => {
-    render(<MovieForm onSubmit={mockOnSubmit} />);
-    isElementByTestIdVisible('input-name');
-    isElementByTestIdVisible('multi-select');
+    isElementByPlaceholderVisible('Movie title');
+    isElementByPlaceholderVisible('Select Genre');
     isElementVisible(/Reset/i);
     isElementVisible(/Submit/i);
   });
 
-  it('submits form when all fields are valid', () => {
-    render(<MovieForm onSubmit={mockOnSubmit} />);
-
-    fireEvent.change(screen.getByTestId('input-name'), {
+  it('submits form when all fields are valid', async () => {
+    fireEvent.change(screen.getByPlaceholderText('Movie title'), {
       target: { value: 'Inception' }
     });
-    fireEvent.change(screen.getByTestId('input-releaseYear'), {
+    fireEvent.change(screen.getByPlaceholderText('Select Date'), {
       target: { value: '2010-07-16' }
     });
-    fireEvent.change(screen.getByTestId('input-imageUrl'), {
+    fireEvent.change(screen.getByPlaceholderText('https://'), {
       target: { value: 'https://example.com/inception.jpg' }
     });
-    fireEvent.change(screen.getByTestId('input-rating'), { target: { value: '8.8' } });
-    fireEvent.change(screen.getByTestId('input-duration'), { target: { value: '148' } });
-    fireEvent.change(screen.getByTestId('input-description'), {
+    fireEvent.change(screen.getByPlaceholderText('7.8'), {
+      target: { value: '8.8' }
+    });
+    fireEvent.change(screen.getByPlaceholderText('minutes'), {
+      target: { value: '40min' }
+    });
+    fireEvent.change(screen.getByPlaceholderText('Movie description'), {
       target: { value: 'A mind-bending thriller directed by Christopher Nolan' }
     });
 
-    userEvent.click(screen.getByTestId('multi-select').options[0]);
-    userEvent.click(screen.getByTestId('multi-select').options[1]);
+    userEvent.click(screen.getByPlaceholderText('Select Genre'));
 
-    userEvent.click(screen.getByText('Submit'));
+    userEvent.click(screen.getByText('Animation'));
 
-    expect(mockOnSubmit).toHaveBeenCalledWith({
-      name: 'Inception',
-      releaseYear: '2010-07-16',
-      imageUrl: 'https://example.com/inception.jpg',
-      rating: '8.8',
-      duration: '148',
-      description: 'A mind-bending thriller directed by Christopher Nolan'
+    fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
+
+    await waitFor(() => {
+      expect(mockOnSubmit).toHaveBeenCalledWith({
+        name: 'Inception',
+        releaseDate: '2010-07-16',
+        imageUrl: 'https://example.com/inception.jpg',
+        rating: '8.8',
+        duration: '40min',
+        genres: 'Comedy, Drama, Animation',
+        description: 'A mind-bending thriller directed by Christopher Nolan'
+      });
     });
+  });
+
+  it('resets form fields when Reset is clicked', () => {
+    fireEvent.change(screen.getByPlaceholderText('Movie title'), {
+      target: { value: 'Inception' }
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /reset/i }));
+
+    expect(screen.getByPlaceholderText('Movie title')).toHaveValue('');
   });
 });

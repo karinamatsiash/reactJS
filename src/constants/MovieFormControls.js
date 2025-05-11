@@ -5,15 +5,25 @@ export const FORM_CONTROLS = [
     placeholder: 'Movie title',
     label: 'Title',
     className: 'medium',
-    errorMessage: 'Please, enter movie title'
+    errorMessages: {
+      required: 'Please, enter movie title'
+    },
+    validation: {
+      required: true
+    }
   },
   {
-    name: 'releaseYear',
+    name: 'releaseDate',
     type: 'date',
     placeholder: 'Select Date',
     label: 'Release Date',
     className: 'small',
-    errorMessage: 'Please, enter movie release date'
+    errorMessages: {
+      required: 'Please, enter movie release date'
+    },
+    validation: {
+      required: true
+    }
   },
   {
     name: 'imageUrl',
@@ -21,7 +31,12 @@ export const FORM_CONTROLS = [
     placeholder: 'https://',
     label: 'Movie Url',
     className: 'medium',
-    errorMessage: 'Please, enter movie url'
+    errorMessages: {
+      required: 'Please, enter movie url'
+    },
+    validation: {
+      required: true
+    }
   },
   {
     name: 'rating',
@@ -32,7 +47,18 @@ export const FORM_CONTROLS = [
     max: 10,
     label: 'Rating',
     className: 'small',
-    errorMessage: 'Please, enter movie raiting'
+    errorMessages: {
+      required: 'Please, enter movie raiting',
+      pattern: 'Please, enter number value',
+      min: 'Please, enter value from 0 to 10',
+      max: 'Please, enter value from 0 to 10'
+    },
+    validation: {
+      required: true,
+      min: 0,
+      max: 10,
+      pattern: /^\d+(\.\d+)?$/
+    }
   },
   {
     name: 'genres',
@@ -40,7 +66,12 @@ export const FORM_CONTROLS = [
     placeholder: 'Select Genre',
     label: 'Genre',
     className: 'medium',
-    errorMessage: 'Please, enter at least 1 movie genre'
+    errorMessages: {
+      required: 'Please, enter at least 1 movie genre'
+    },
+    validation: {
+      required: true
+    }
   },
   {
     name: 'duration',
@@ -48,7 +79,14 @@ export const FORM_CONTROLS = [
     placeholder: 'minutes',
     label: 'Runtime',
     className: 'small',
-    errorMessage: 'Please, enter movie runtime'
+    errorMessages: {
+      required: 'Please, enter movie runtim',
+      pattern: 'Please, enter time in format {x}h {y}min'
+    },
+    validation: {
+      required: true,
+      pattern: /^((([1-9]\d*)h)?\s?(([1-9]\d*)min)?)$/
+    }
   },
   {
     name: 'description',
@@ -56,6 +94,11 @@ export const FORM_CONTROLS = [
     placeholder: 'Movie description',
     label: 'Overview',
     className: 'large',
-    errorMessage: 'Please, enter movie description'
+    errorMessages: {
+      required: 'Please, enter movie description'
+    },
+    validation: {
+      required: true
+    }
   }
 ];

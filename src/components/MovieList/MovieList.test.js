@@ -15,7 +15,7 @@ jest.mock('../shared/ErrorMessage/ErrorMessage', () => () => (
   <div>Mocked error message</div>
 ));
 jest.mock('../shared/NoData/NoData', () => () => <div>Mocked no data</div>);
-jest.mock('../shared/Loader/Loader', () => () => <div>Mocked loader</div>);
+jest.mock('../shared/GeneralLoader/GeneralLoader', () => () => <div>Mocked loader</div>);
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
@@ -28,14 +28,14 @@ describe('MovieList Component', () => {
       id: '1',
       name: 'Inception',
       imageUrl: 'inception.jpg',
-      releaseYear: '2010',
+      releaseDate: '2010',
       genres: ['Sci-Fi']
     },
     {
       id: '2',
       name: 'Titanic',
       imageUrl: 'titanic.jpg',
-      releaseYear: '1997',
+      releaseDate: '1997',
       genres: ['Romance', 'Drama']
     }
   ];

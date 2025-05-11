@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const Input = ({ label, className, errorMessage, isValid, ...inputArgs }) => {
-  const invalid = inputArgs.required && !isValid;
+  const invalid = !isValid;
 
   return (
     <div className={className}>

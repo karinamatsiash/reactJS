@@ -26,7 +26,7 @@ export const MovieControlWithInitialData = {
   args: {
     mmovieData: {
       name: 'Interstellar',
-      releaseYear: '2014-11-07',
+      releaseDate: '2014-11-07',
       imageUrl: 'Interstellar_film_poster.jpg',
       rating: '8.1',
       genres: 'Adventure, Drama',

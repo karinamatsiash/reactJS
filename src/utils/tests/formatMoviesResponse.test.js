@@ -1,7 +1,7 @@
-import { formatMoviesResponse } from '../formatMoviesResponse';
-import { formatDuration } from '../formatDuration';
-
-jest.mock('../formatDuration');
+import {
+  formatAddMovieRequestParams,
+  formatMoviesResponse
+} from '../formatMoviesResponse';
 
 describe('formatMoviesResponse', () => {
   it('should format movie data correctly', () => {
@@ -18,8 +18,6 @@ describe('formatMoviesResponse', () => {
       }
     ];
 
-    formatDuration.mockReturnValue('2h 28min');
-
     const result = formatMoviesResponse(movieData);
 
     expect(result).toEqual([
@@ -27,7 +25,7 @@ describe('formatMoviesResponse', () => {
         name: 'Inception',
         id: 1,
         imageUrl: 'inception-poster.jpg',
-        releaseYear: '2010-07-16',
+        releaseDate: '2010-07-16',
         genres: 'Action, Sci-Fi',
         rating: 8.8,
         duration: '2h 28min',
@@ -43,23 +41,32 @@ describe('formatMoviesResponse', () => {
 
     expect(result).toEqual([]);
   });
+});
 
-  it('should call formatDuration with the correct runtime value', () => {
-    const movieData = [
-      {
-        id: 1,
-        title: 'Inception',
-        poster_path: 'inception-poster.jpg',
-        release_date: '2010-07-16',
-        genres: ['Action', 'Sci-Fi'],
-        vote_average: 8.8,
-        runtime: 148,
-        overview: 'A thief who steals corporate secrets...'
-      }
-    ];
+describe('formatAddMovieRequestParams', () => {
+  it('should format movie data correctly', () => {
+    const movieData = {
+      name: 'Inception',
+      id: 1,
+      imageUrl: 'inception-poster.jpg',
+      releaseDate: '2010-07-16',
+      genres: 'Action, Sci-Fi',
+      rating: 8.8,
+      duration: '2h 28min',
+      description: 'overview'
+    };
 
-    formatMoviesResponse(movieData);
+    const result = formatAddMovieRequestParams(movieData);
 
-    expect(formatDuration).toHaveBeenCalledWith(148);
+    expect(result).toEqual({
+      id: 1,
+      title: 'Inception',
+      poster_path: 'inception-poster.jpg',
+      release_date: '2010-07-16',
+      genres: ['Action', 'Sci-Fi'],
+      vote_average: 8.8,
+      runtime: 148,
+      overview: 'overview'
+    });
   });
 });

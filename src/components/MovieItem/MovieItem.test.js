@@ -17,7 +17,7 @@ describe('MovieItem Component', () => {
   const movieData = {
     imageUrl: 'sample.jpg',
     name: 'Interstellar',
-    releaseYear: '2014',
+    releaseDate: '2014',
     genres: ['Sci-Fi', 'Drama']
   };
 

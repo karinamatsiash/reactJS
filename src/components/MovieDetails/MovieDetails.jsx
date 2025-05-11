@@ -10,7 +10,7 @@ import { Link, useLoaderData, useSearchParams } from 'react-router';
 const MovieDetails = () => {
   const [searchParams] = useSearchParams();
   const { movieData } = useLoaderData();
-  const { imageUrl, name, rating, releaseYear, duration, genres, description } =
+  const { imageUrl, name, rating, releaseDate, duration, genres, description } =
     formatMovieResponse(movieData.result);
 
   return (
@@ -35,7 +35,7 @@ const MovieDetails = () => {
 
           <div className='additional-info d-flex'>
             <div className='additional-info_year'>
-              {new Date(releaseYear).getFullYear()}
+              {new Date(releaseDate).getFullYear()}
             </div>
             <div className='additional-info_duration'>{duration}</div>
           </div>
