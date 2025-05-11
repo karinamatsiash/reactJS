@@ -1,13 +1,15 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import MovieControl from './MovieControl';
 import userEvent from '@testing-library/user-event';
 import * as deleteApi from '../../api/deleteMovieFromList';
 import { isElementByRoleVisible } from '../../testing/isElementByRoleVisible';
 import { isElementVisible } from '../../testing/isElementVisible';
 import { isElementNonVisible } from '../../testing/isElementNonVisible';
+import { useNavigate } from 'react-router';
+import { renderWithRouter } from '../../testing/renderWithRouter';
 
 jest.mock('../../api/deleteMovieFromList');
 
@@ -37,12 +39,23 @@ jest.mock('react-icons/io5', () => ({
   IoCloseOutline: ({ onClick }) => <button onClick={onClick}>Close control</button>
 }));
 
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useNavigate: jest.fn()
+}));
+
 describe('MovieControl', () => {
   const mockMovieData = { title: 'Inception', year: 2010, id: 123 };
   const mockOnMovieDelete = jest.fn();
+  const mockNavigate = jest.fn();
 
   beforeEach(() => {
-    render(<MovieControl movieData={mockMovieData} onMovieDelete={mockOnMovieDelete} />);
+    useNavigate.mockImplementation(() => mockNavigate);
+    renderWithRouter({
+      children: (
+        <MovieControl movieData={mockMovieData} onMovieDelete={mockOnMovieDelete} />
+      )
+    });
   });
 
   it('should render MovieControl button', () => {
@@ -58,15 +71,14 @@ describe('MovieControl', () => {
     isElementVisible(/Delete/);
   });
 
-  it('should show edit dialog when "Edit" is clicked', async () => {
+  it('should navigate to edit dialog when "Edit" is clicked', async () => {
     const controlButton = screen.getByRole('button');
 
     userEvent.click(controlButton);
     isElementVisible(/Edit/);
     userEvent.click(screen.getByText(/Edit/));
 
-    isElementVisible(/EDIT MOVIE/);
-    isElementVisible(/Movie Form/);
+    expect(mockNavigate).toHaveBeenCalledWith({ pathname: `/123/edit`, search: '' });
   });
 
   it('should show delete dialog when "Delete" is clicked', () => {
@@ -91,19 +103,6 @@ describe('MovieControl', () => {
 
     isElementNonVisible(/Edit/);
     isElementNonVisible(/Delete/);
-  });
-
-  it('should close edit dialog when close button is clicked', () => {
-    const controlButton = screen.getByRole('button');
-
-    userEvent.click(controlButton);
-    userEvent.click(screen.getByText(/Edit/));
-
-    isElementVisible(/EDIT MOVIE/);
-
-    userEvent.click(screen.getByText(/Close dialog/));
-
-    isElementNonVisible(/EDIT MOVIE/);
   });
 
   it('should close delete dialog when close button is clicked', () => {
@@ -134,10 +133,7 @@ describe('MovieControl', () => {
     userEvent.click(screen.getByText(/Confirm/));
 
     await waitFor(() => {
-      expect(deleteApi.deleteMovieFromList).toHaveBeenCalledWith(
-        mockMovieData.id,
-        'DELETE'
-      );
+      expect(deleteApi.deleteMovieFromList).toHaveBeenCalledWith(mockMovieData.id);
       expect(mockOnMovieDelete).toHaveBeenCalled();
     });
   });
@@ -156,10 +152,7 @@ describe('MovieControl', () => {
     userEvent.click(screen.getByText(/Confirm/));
 
     await waitFor(() => {
-      expect(deleteApi.deleteMovieFromList).toHaveBeenCalledWith(
-        mockMovieData.id,
-        'DELETE'
-      );
+      expect(deleteApi.deleteMovieFromList).toHaveBeenCalledWith(mockMovieData.id);
       expect(mockOnMovieDelete).not.toHaveBeenCalled();
     });
   });

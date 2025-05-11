@@ -101,8 +101,10 @@ describe('MultiSelect Component', () => {
 
     isElementNonVisible('Action');
     expect(mockOnChange).toHaveBeenCalledWith({
-      name: 'genres',
-      value: ''
+      target: {
+        name: 'genres',
+        value: ''
+      }
     });
   });
 

@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
 import './MoviesTopSection.scss';
 import PropTypes from 'prop-types';
-import MovieForm from '../MovieForm/MovieForm';
-import Dialog from '../shared/Dialog/Dialog';
 import Button from '../shared/Button/Button';
 import Input from '../shared/Input/Input';
 import { updateSearchParam } from '../../utils/searchParams/updateSearchParam';
-import { useSearchParams } from 'react-router';
+import { Outlet, useNavigate, useSearchParams } from 'react-router';
 
 const DEFAULT_WIDTH = 400;
 
 const MoviesTopSection = ({ width = DEFAULT_WIDTH }) => {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [value, setValue] = useState(searchParams.get('search') || '');
-  const [movieData, setMovieData] = useState({});
-  const [shouldShowMovieDialog, setShouldShowMovieDialog] = useState(false);
 
   const onSearchClick = () => updateSearchValue(value);
 
@@ -32,46 +28,43 @@ const MoviesTopSection = ({ width = DEFAULT_WIDTH }) => {
       preventScrollReset: true
     });
 
-  const showMovieDialog = () => setShouldShowMovieDialog(true);
-  const closeMovieDialog = () => setShouldShowMovieDialog(false);
-
-  const onAddMovieSubmit = (formData) => {
-    setMovieData(formData);
-    closeMovieDialog();
-  };
+  const showMovieDialog = () =>
+    navigate({
+      pathname: `/new`,
+      search: searchParams.toString()
+    });
 
   return (
-    <div className='search-form'>
-      <div className='search-form_background'></div>
+    <>
+      <div className='search-form'>
+        <div className='search-form_background'></div>
 
-      <div className='search-form_add-button'>
-        <Button transparent={true} onClick={showMovieDialog}>
-          + ADD MOVIE
-        </Button>
+        <div className='search-form_add-button'>
+          <Button transparent={true} onClick={showMovieDialog}>
+            + ADD MOVIE
+          </Button>
+        </div>
+
+        <div className='search-form_title'>{'FIND YOUR MOVIE'}</div>
+        <div className='search-form_search'>
+          <Input
+            type='text'
+            className='auto'
+            value={value}
+            onKeyDown={onKeyDown}
+            onChange={onChange}
+            placeholder='What do you want to watch?'
+            isValid={true}
+            style={{ width: `${width}px` }}
+          />
+          <Button cta={true} onClick={onSearchClick}>
+            {'SEARCH'}
+          </Button>
+        </div>
       </div>
 
-      <div className='search-form_title'>{'FIND YOUR MOVIE'}</div>
-      <div className='search-form_search'>
-        <Input
-          type='text'
-          className='auto'
-          value={value}
-          onKeyDown={onKeyDown}
-          onChange={onChange}
-          placeholder='What do you want to watch?'
-          style={{ width: `${width}px` }}
-        />
-        <Button cta={true} onClick={onSearchClick}>
-          {'SEARCH'}
-        </Button>
-      </div>
-
-      {shouldShowMovieDialog && (
-        <Dialog onClose={closeMovieDialog} title={'ADD MOVIE'}>
-          <MovieForm onSubmit={onAddMovieSubmit} movieData={movieData} />
-        </Dialog>
-      )}
-    </div>
+      <Outlet />
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import MovieGenres from '../shared/MovieGenres/MovieGenres';
 import PropTypes from 'prop-types';
 
 const MovieItem = ({ movieData, onClick }) => {
-  const { imageUrl, name, releaseYear, genres } = movieData;
+  const { imageUrl, name, releaseDate, genres } = movieData;
 
   return (
     <div className='movie' onClick={onClick}>
@@ -13,7 +13,7 @@ const MovieItem = ({ movieData, onClick }) => {
 
       <div className='movie_info'>
         <div className='movie_name'>{name}</div>
-        <div className='movie_year'>{new Date(releaseYear).getFullYear()}</div>
+        <div className='movie_year'>{new Date(releaseDate).getFullYear()}</div>
       </div>
       <MovieGenres genres={genres} />
     </div>

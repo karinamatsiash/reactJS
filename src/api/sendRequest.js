@@ -1,6 +1,6 @@
-export const sendRequest = async (url, { signal, method = 'GET' }) => {
+export const sendRequest = async (url, { signal, method = 'GET', body, headers }) => {
   try {
-    const response = await fetch(url, { signal, method });
+    const response = await fetch(url, { signal, method, body, headers });
 
     if (!response.ok) {
       throw new Error(`Error status: ${response.status}`);

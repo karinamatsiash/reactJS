@@ -8,7 +8,7 @@ export const FORM_CONTROLS = [
     errorMessage: 'Please, enter movie title'
   },
   {
-    name: 'releaseYear',
+    name: 'releaseDate',
     type: 'date',
     placeholder: 'Select Date',
     label: 'Release Date',

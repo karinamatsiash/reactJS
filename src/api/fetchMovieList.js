@@ -11,5 +11,5 @@ export const fetchMovieList = async (params, controller) => {
     movieListUrl = `${movieListUrl}&${queryString}`;
   }
 
-  return sendRequest(movieListUrl, { signal: controller.signal });
+  return sendRequest(movieListUrl, { signal: controller?.signal });
 };

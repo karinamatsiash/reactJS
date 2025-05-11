@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import './MovieControl.scss';
 import PropTypes from 'prop-types';
-import MovieForm from '../MovieForm/MovieForm';
 import Dialog from '../shared/Dialog/Dialog';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import DeleteForm from '../DeleteForm/DeleteForm';
 import { IoCloseOutline } from 'react-icons/io5';
 import { deleteMovieFromList } from '../../api/deleteMovieFromList';
+import { useNavigate, useSearchParams } from 'react-router';
 
 const MovieControl = ({ movieData, onMovieDelete }) => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [showControl, setShowControl] = useState(false);
-  const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [isDeleteError, setIsDeleteError] = useState(false);
 
@@ -25,8 +26,10 @@ const MovieControl = ({ movieData, onMovieDelete }) => {
 
   const onEditClick = (event) => {
     event.stopPropagation();
-    setShowControl(false);
-    setShowEditDialog(true);
+    navigate({
+      pathname: `/${movieData.id}/edit`,
+      search: searchParams.toString()
+    });
   };
   const onDeleteClick = (event) => {
     event.stopPropagation();
@@ -34,11 +37,10 @@ const MovieControl = ({ movieData, onMovieDelete }) => {
     setShowDeleteDialog(true);
   };
 
-  const onEditDialogClose = () => setShowEditDialog(false);
   const onDeleteDialogClose = () => setShowDeleteDialog(false);
 
   const onDeleteConfirm = async () => {
-    const { isError } = await deleteMovieFromList(movieData.id, 'DELETE');
+    const { isError } = await deleteMovieFromList(movieData.id);
     if (!isError) {
       setShowDeleteDialog(false);
       onMovieDelete();
@@ -67,11 +69,6 @@ const MovieControl = ({ movieData, onMovieDelete }) => {
         )}
       </div>
 
-      {showEditDialog && (
-        <Dialog onClose={onEditDialogClose} title={'EDIT MOVIE'}>
-          <MovieForm movieData={movieData} onSubmit={onEditDialogClose} />
-        </Dialog>
-      )}
       {showDeleteDialog && (
         <Dialog onClose={onDeleteDialogClose} title={'DELETE MOVIE'} width='680px'>
           <DeleteForm isError={isDeleteError} onConfirm={onDeleteConfirm} />

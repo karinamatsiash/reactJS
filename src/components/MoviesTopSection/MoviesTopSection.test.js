@@ -4,11 +4,10 @@ import React from 'react';
 import { fireEvent, screen } from '@testing-library/react';
 import { isElementVisible } from '../../testing/isElementVisible';
 import userEvent from '@testing-library/user-event';
-import { isElementNonVisible } from '../../testing/isElementNonVisible';
-import { isElementByTestIdVisible } from '../../testing/isElementByTestIdVisible';
 import { isElementByPlaceholderVisible } from '../../testing/isElementByPlaceholderVisible';
 import MoviesTopSection from './MoviesTopSection';
 import { renderWithRouter } from '../../testing/renderWithRouter';
+import { useNavigate } from 'react-router';
 
 const mockOnSearch = jest.fn();
 
@@ -19,6 +18,11 @@ jest.mock('../shared/Dialog/Dialog', () => ({ children, onClose }) => (
     {children}
   </div>
 ));
+
+jest.mock('react-router', () => ({
+  ...jest.requireActual('react-router'),
+  useNavigate: jest.fn()
+}));
 
 jest.mock('../MovieForm/MovieForm', () => ({ onSubmit }) => (
   <div data-testid='movie-form'>
@@ -46,7 +50,10 @@ jest.mock(
 );
 
 describe('MoviesTopSection', () => {
+  const mockNavigate = jest.fn();
+
   beforeEach(() => {
+    useNavigate.mockImplementation(() => mockNavigate);
     renderWithRouter({ children: <MoviesTopSection onSearch={mockOnSearch} /> });
     jest.clearAllMocks();
   });
@@ -77,11 +84,9 @@ describe('MoviesTopSection', () => {
   it('opens and submits the add movie dialog', () => {
     userEvent.click(screen.getByText(/\+ ADD MOVIE/i));
 
-    isElementByTestIdVisible('dialog');
-    isElementByTestIdVisible('movie-form');
-
-    userEvent.click(screen.getByText('Submit'));
-
-    isElementNonVisible('dialog');
+    expect(mockNavigate).toHaveBeenCalledWith({
+      pathname: '/new',
+      search: ''
+    });
   });
 });
